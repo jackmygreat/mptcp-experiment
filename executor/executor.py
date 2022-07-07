@@ -4,7 +4,7 @@ import logging
 import subprocess
 import os
 
-class Executor(Object):
+class Executor(object):
 
     def __init__(self, process_info, output_path : str):
         self.process_info = process_info

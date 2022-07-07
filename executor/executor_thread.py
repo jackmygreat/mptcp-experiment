@@ -1,10 +1,11 @@
-import threading
 import time
 import logging
 import math
+import psutil
+import threading
 
 from monitor import *
-from . import Executor
+from .executor import Executor
 
 class ExecutorThread(threading.Thread):
 
@@ -26,13 +27,13 @@ class ExecutorThread(threading.Thread):
         self.cpu_counts = psutil.cpu_count()
         self.max_shared_process_per_cpu = 3
         self.maximum_number_of_shared_process = math.ceil(psutil.cpu_count() / 4)
-        self.running_shared_process_on_cpus = [(i, 0) for i in range(self.cpu_count - 1, self.cpu_count - 1 - self.maximum_number_of_shared_process, -1)]
-        self.running_process_on_cpus = [(i, 0) for i in range(0, self.cpu_count - self.maximum_number_of_shared_process)]
+        self.running_shared_process_on_cpus = [(i, 0) for i in range(self.cpu_counts - 1, self.cpu_counts - 1 - self.maximum_number_of_shared_process, -1)]
+        self.running_process_on_cpus = [(i, 0) for i in range(0, self.cpu_counts - self.maximum_number_of_shared_process)]
 
     def run(self):
         while True:
             # check if we have enough core for running program and if we have process in queue
-            if len(running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty():
+            if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty():
                 new_process = self.process_queue.get()
 
                 if not new_process.is_valid():
@@ -96,11 +97,4 @@ class ExecutorThread(threading.Thread):
             self.running_threads = [thread_info for index, thread_info in enumerate(self.running_threads) if index not in dead_threads_index]
             
             time.sleep(self.loop_time)
-
-
-
-
-
-                
-
 

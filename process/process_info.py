@@ -3,7 +3,7 @@ import os
 import subprocess
 
 
-class ProcessOptions(Object):
+class ProcessOptions(object):
 
     def __init__(self):
         self.process_name = ""
@@ -16,8 +16,17 @@ class ProcessOptions(Object):
         self.ionice_type_value = (psutil.IOPRIO_CLASS_BE, 3)
         self.cpu_affinity = []
         self.scheduler_type_value = ('', 0)
-        
-class ProcessInfo(Object):
+
+    def is_valid(self):
+        if len(self.process_name) == 0:
+            return False
+
+        if self.process_binary == None:
+            return False
+
+        return True
+
+class ProcessInfo(object):
 
     def __init__(self, process_id : int, process_options : ProcessOptions):
         self.process_id = process_id

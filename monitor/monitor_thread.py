@@ -2,14 +2,14 @@ import threading
 import logging
 import time
 from enum import Enum
-from . import MonitorProcess
+from .monitor import MonitorProcess
 
 class MonitorRequestType(str, Enum):
     add = "add"
     delete = "delete"
 
 
-class MonitorRequest(Object)
+class MonitorRequest(object):
     def __init__(self, request_type, kwargs):
         self.request_type = request_type
         self.kwargs = kwargs
@@ -24,10 +24,10 @@ class MonitorRequest(Object)
 class MonitorThread(threading.Thread):
 
     def __init__(self, group=None, target=None, name=None, args=(), kwargs=None, verbose=None):
-		super(MonitorThread, self).__init__(group=group, target=target, name=name)
+        super(MonitorThread, self).__init__(group=group, target=target, name=name)
 
-		self.args = args
-		self.kwargs = kwargs
+        self.args = args
+        self.kwargs = kwargs
         self.queue = self.kwargs["queue"]
         self.sleep_time_in_second = self.kwargs["sleep_time_in_second"]
         self.process_list = []
