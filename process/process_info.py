@@ -8,7 +8,9 @@ class ProcessOptions(Object):
     def __init__(self):
         self.process_name = ""
         self.process_cwd = "/"
-        self.process_command = ""
+        self.process_directory = None
+        self.process_binary = None
+        self.process_binary_options = ""
         self.nice_value = 20
         self.ionice_type_value = (psutil.IOPRIO_CLASS_BE, 3)
         self.cpu_affinity = []
