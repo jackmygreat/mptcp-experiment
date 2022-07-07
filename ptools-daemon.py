@@ -2,15 +2,111 @@ import uvicorn
 import queue
 import logging
 import threading
+import json
+import psutil
+
+from typing import Union, List
 
 from executor.executor_thread import *
 from monitor.monitor_thread import *
-from server import *
+
+from fastapi import FastAPI
+from pydantic import BaseModel
 
 logging.basicConfig(level=logging.DEBUG,
                     format='(%(threadName)-9s) %(message)s',)
 
-if __name__ == "__main__":
+hooks = {
+        "get_all_process": None,
+        "get_process_info": None,
+        "cancel_running_process": None,
+        "get_process_output": None,
+        "watch_process_output": None,
+        "get_process_in_queue": None,
+        "add_process_in_queue": None,
+        "delete_process_from_queue": None
+}
+
+server = FastAPI()
+
+@server.get("/process")
+def get_all_process():
+    all_process = hooks["get_all_process"]()
+    json_string = json.dumps([ob.__dict__ for ob in all_process])
+    return json_string
+
+@server.get("/process/{process_id}")
+def get_process_info(process_id : int):
+    return {
+        "process_id": process_id
+    }
+
+@server.delete("/process/{process_id}")
+def cancel_running_process(process_id : int):
+    return {
+        "canceled": process_id
+    }
+
+@server.get("/output/{process_id}")
+def get_process_output(process_id: int):
+    return {
+        "process_output": "output"
+    }
+
+@server.get("/watch-output/{process_id}")
+def watch_process_output(process_id: int):
+    return {
+        "output": process_id
+    }
+
+@server.get("/process-queue")
+def get_process_in_queue():
+    queue_list = [queue_obj for queue_obj in server.server_executor_queue.queue]
+    json_string = [json.dumps(ob.__dict__) for ob in queue_list]
+    return {
+        "queue": json_string
+    }
+
+class ProcessReq(BaseModel):
+    process_name: str
+    process_directory: str
+    process_binary: str
+    process_binary_options = ""
+    nice_value = 20
+    ionice_type = psutil.IOPRIO_CLASS_BE
+    ionice_value = 3
+    cpu_affinity = []
+    scheduler_type = 'SCHED_OTHER'
+    scheduler_value = 0
+
+@server.post("/process-queue/add")
+def add_process_in_queue(process_req : ProcessReq):
+    process_options = ProcessOptions()
+    process_options.process_name = process_req.process_name
+    process_options.process_directory = process_req.process_directory
+    process_options.process_binary = process_req.process_binary
+    process_options.process_binary_options = process_req.process_binary_options
+    process_options.nice_value = process_req.nice_value
+    process_options.ionice_type_value = (process_req.ionice_type, process_req.ionice_value)
+    process_options.cpu_affinity = process_req.cpu_affinity
+    process_options.scheduler_type_value = (process_req.scheduler_type, process_req.scheduler_value)
+
+    process_info = ProcessInfo(1, process_options)
+    server.server_executor_queue.put(process_info)
+
+    return {
+        "status": "added to queue"
+    }
+
+@server.delete("/process-queue/{process_id}")
+def delete_process_from_queue(process_id : int):
+    return {
+        "process_id": process_id
+    }
+
+
+@server.on_event("startup")
+def startup_event():
     executor_monitor_queue = queue.Queue(1000)
     server_executor_queue = queue.Queue(1000)
 
@@ -27,7 +123,11 @@ if __name__ == "__main__":
         "executor_thread_loop_time": 10
     })
     executor_thread.start()
+    server.server_executor_queue = server_executor_queue
+    hooks["get_all_process"] = executor_thread.get_all_running_process
+    hooks["get_process_info"] = executor_thread.get_process_info_by_process_id
 
-    uvicorn.run("server.api:server", host="0.0.0.0", port=8080, reload=True)
-    monitor_thread.join()
-    executor_thread.join()
+
+if __name__ == "__main__":
+    uvicorn.run("ptools-daemon:server", host="0.0.0.0", port=8080, reload=True, workers=1)
+    

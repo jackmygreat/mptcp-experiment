@@ -30,6 +30,16 @@ class ExecutorThread(threading.Thread):
         self.running_shared_process_on_cpus = [(i, 0) for i in range(self.cpu_counts - 1, self.cpu_counts - 1 - self.maximum_number_of_shared_process, -1)]
         self.running_process_on_cpus = [(i, 0) for i in range(0, self.cpu_counts - self.maximum_number_of_shared_process)]
 
+    def get_all_running_process(self):
+        return [thread_info[0] for thread_info in self.running_threads]
+
+    def get_process_info_by_process_id(self, process_id : int):
+        process = [thread_info[0] for thread_info in self.running_threads if thread_info[0].process_options.process_id == process_id]
+        if len(process) > 0:
+            return process[0]
+        return None
+
+    
     def run(self):
         while True:
             # check if we have enough core for running program and if we have process in queue
