@@ -6,10 +6,11 @@ import subprocess
 
 class MonitorProcess(Object):
 
-    def __init__(self, process : Process, options=None):
-		self.options = options
+    def __init__(self, process):
 		self.recent_first_core_pid = -1
-        self.process = process
+        self.process_info = process
+        self.options = self.process_info.process_options
+        self.process = psutil.Process(process.process_options.process_pid)
 
 	def _set_scheduler(self, thread_id : int, process_scheduler_type_value):
 		scheduler_type = process_scheduler_type_value[0]

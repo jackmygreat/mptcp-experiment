@@ -10,6 +10,7 @@ class ProcessOptions(Object):
         self.process_cwd = "/"
         self.process_directory = None
         self.process_binary = None
+        self.process_pid = -1
         self.process_binary_options = ""
         self.nice_value = 20
         self.ionice_type_value = (psutil.IOPRIO_CLASS_BE, 3)

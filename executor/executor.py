@@ -25,7 +25,9 @@ class Executor(Object):
             stderr = subprocess.PIPE,
             universal_newlines=True)
 
-    def write_output(self):
+        return self.process.pid
+
+    def _write_output(self):
         with open(self.output_path + "/" +
                         f"{self.process_info.process_options.process_name}-time", "w+") as f:
                 
@@ -51,7 +53,5 @@ class Executor(Object):
 
                     return return_code
 
-
-
-
-        
+    def get_write_output_thread(self):
+        return threading.Thread(target=self._write_output, args=())
