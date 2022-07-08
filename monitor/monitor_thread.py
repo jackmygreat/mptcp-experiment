@@ -3,6 +3,7 @@ import logging
 import time
 from enum import Enum
 from .monitor import MonitorProcess
+import traceback
 
 class MonitorRequestType(str, Enum):
     add = "add"
@@ -63,6 +64,7 @@ class MonitorThread(threading.Thread):
                 try:
                     process_info[1].monitor()
                 except Exception as e:
+                    print(traceback.format_exc())
                     logging.error("Cannot monitor process id %d. error: %s", process_info[0], e)
                     dead_process.append(process_info[0])
            

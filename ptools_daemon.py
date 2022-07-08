@@ -131,5 +131,5 @@ def startup_event():
     server.start_process_id = 1
 
 if __name__ == "__main__":
-    uvicorn.run("ptools-daemon:server", host="0.0.0.0", port=8080, reload=True, workers=1)
+    uvicorn.run("ptools_daemon:server", host="0.0.0.0", port=8080, reload=True, workers=1)
     

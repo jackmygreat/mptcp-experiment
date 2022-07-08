@@ -31,7 +31,7 @@ def colorful_json(json_str: str):
     )
 
 def add_process_handler(args):
-    process_req = ProcessReq()
+    process_req = ProcessReq(process_name="", process_directory="", process_binary="", process_example_name="")
     process_req.process_name = args.process_name
     process_req.process_directory = args.process_directory
     process_req.process_binary = args.process_binary
@@ -40,38 +40,52 @@ def add_process_handler(args):
     process_req.nice_value = args.nice_value
     process_req.ionice_type = args.ionice_type
     process_req.ionice_value = args.ionice_value
-    process_req.cpu_affinity = [int(cpu) for cpu in args.cpus.split(",")]
+    
+    cpus = [cpu for cpu in args.cpus.split(",")]
+    if len(cpus) > 0 and cpus[0] != '':
+        process_req.cpu_affinity = [int(cpu) for cpu in cpus]
+    else:
+        process_req.cpu_affinity = []
     process_req.scheduler_type = args.scheduler_type
     process_req.scheduler_value = args.scheduler_value
 
     if args.v:
-        raw_json = process_req.json()
+        raw_json = process_req.json(indent=4)
+        print("<" * 40)
         print(colorful_json(raw_json))
 
-
-    response = requests.post("http:/127.0.0.1:8080/process-queue/add", json=process_req.json())
-    print(colorful_json(response.json()))
+    response = requests.post("http://127.0.0.1:8080/process-queue/add", json=json.loads(process_req.json()), headers={"Content-Type": "application/json"})
+    if args.v:
+        print(">" * 40)
+    print(colorful_json( json.dumps(response.json(), indent=4)) )
 
 def stop_process_handler(args):
-    pass
-
+    process_id = args.process_id
+    response = requests.delete(f"http://127.0.0.1:8080/process/{process_id}")
+    print(colorful_json( json.dumps(response.json(), indent=4)) )
+    
 def list_process_handler(args):
     running = args.running
     pending = args.pending
 
     response = None
     if not running and pending:
-        response = requests.get("http:/127.0.0.1:8080/process")
+        response = requests.get("http://127.0.0.1:8080/process-queue")
     else:
-        response = requests.get("http:/127.0.0.1:8080/process-queue")
+        response = requests.get("http://127.0.0.1:8080/process")
 
-    print(colorful_json(response.json())
-
+    print(colorful_json( json.dumps(response.json(), indent=4)) )
+    
 def output_process_handler(args):
-    pass
+    process_id = args.process_id
+    response = requests.get(f"http://127.0.0.1:8080/output/{process_id}")
+    for output_line in response.json():
+        print(output_line)
 
 def info_process_handler(args):
-    pass
+    process_id = args.process_id
+    response = requests.get(f"http://127.0.0.1:8080/process/{process_id}")
+    print(colorful_json( json.dumps(response.json(), indent=4)) )
 
 def defualt_process_handler(args):
     parser.print_help()

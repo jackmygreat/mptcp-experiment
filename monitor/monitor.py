@@ -50,7 +50,7 @@ class MonitorProcess(object):
                 logging.info("System is not consistent(%s). because thread with pid %s has different ionice value or type."
                                                         "current type: %d, current value: %d, desire type: %d, desire value: %d", self.options.process_name, 
                                                         thread[0], ionice_value[0], ionice_value[1],
-                            process_desire_nice_value[0], process_desire_nice_value[1])
+                            process_io_nice_type_value[0], process_io_nice_type_value[1])
                 return False
             
             sorted_thread_list = self._sort_threads_based_on_cpu_usage(threads)
