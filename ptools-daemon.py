@@ -32,8 +32,8 @@ server = FastAPI()
 @server.get("/process")
 def get_all_process():
     all_process = hooks["get_all_process"]()
-    json_string = json.dumps([ob.__dict__ for ob in all_process])
-    return json_string
+    #json_string = [process.toJSON() for process in all_process]
+    return all_process
 
 @server.get("/process/{process_id}")
 def get_process_info(process_id : int):
@@ -49,9 +49,7 @@ def cancel_running_process(process_id : int):
 
 @server.get("/output/{process_id}")
 def get_process_output(process_id: int):
-    return {
-        "process_output": "output"
-    }
+    return hooks["get_process_output"](process_id)
 
 @server.get("/watch-output/{process_id}")
 def watch_process_output(process_id: int):
@@ -128,6 +126,7 @@ def startup_event():
     server.server_executor_queue = server_executor_queue
     hooks["get_all_process"] = executor_thread.get_all_running_process
     hooks["get_process_info"] = executor_thread.get_process_info_by_process_id
+    hooks["get_process_output"] = executor_thread.get_process_output_by_id
 
 if __name__ == "__main__":
     uvicorn.run("ptools-daemon:server", host="0.0.0.0", port=8080, reload=True, workers=1)

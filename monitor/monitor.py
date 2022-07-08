@@ -65,7 +65,7 @@ class MonitorProcess(object):
                     logging.info("System is not consistent(%s). because shared thread with pid %d has diffrent cpu affinity.", self.options.process_name, thread_pid)
                     return False
         
-        logging.debug("System is consistent")
+        logging.debug("System is consistent(%s)", self.options.process_name)
         return True
 
     def monitor(self):

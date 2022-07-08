@@ -30,6 +30,9 @@ class Executor(object):
 
         return self.process.pid
 
+    def get_output(self):
+        return self.output
+    
     def _write_output(self):
         with open(self.output_path + "/" +
                         f"{self.process_info.process_options.process_name}-time", "w+") as f:

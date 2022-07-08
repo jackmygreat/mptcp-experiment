@@ -35,11 +35,16 @@ class ExecutorThread(threading.Thread):
         return [thread_info[0] for thread_info in self.running_threads]
 
     def get_process_info_by_process_id(self, process_id : int):
-        process = [thread_info[0] for thread_info in self.running_threads if thread_info[0].process_options.process_id == process_id]
+        process = [thread_info[0] for thread_info in self.running_threads if thread_info[0].process_id == process_id]
         if len(process) > 0:
             return process[0]
         return None
 
+    def get_process_output_by_id(self, process_id : int): 
+        executor = [thread_info[2] for thread_info in self.running_threads if thread_info[0].process_id == process_id]
+        if len(executor) > 0:
+            return executor[0].get_output()
+        return None
     
     def run(self):
         while True:
@@ -71,7 +76,7 @@ class ExecutorThread(threading.Thread):
                 # spawn a new thread for writing output
                 thread = executor.get_write_output_thread()
                 thread.start()
-                self.running_threads.append( (new_process, thread) )
+                self.running_threads.append( (new_process, thread, executor) )
 
                 # create monitor request and send to monitor thread
                 monitor_obj = MonitorProcess(new_process) 

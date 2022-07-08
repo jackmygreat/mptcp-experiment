@@ -1,7 +1,7 @@
 import psutil
 import os
 import subprocess
-
+import json
 
 class ProcessOptions(object):
 
@@ -28,6 +28,10 @@ class ProcessOptions(object):
 
         return True
 
+    def toJSON(self):
+        return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
+
+
 class ProcessInfo(object):
 
     def __init__(self, process_id : int, process_options : ProcessOptions):
@@ -36,5 +40,10 @@ class ProcessInfo(object):
 
     def is_valid(self):
         return self.process_options.is_valid()
+
+    def toJSON(self):
+        return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
+
+
 
 
