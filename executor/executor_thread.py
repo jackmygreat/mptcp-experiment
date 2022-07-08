@@ -52,6 +52,13 @@ class ExecutorThread(threading.Thread):
         if len(executor) > 0:
             return executor[0].get_output()
         return None
+
+    def terminate_process_by_id(self, process_id: int):
+        executor = [thread_info[2] for thread_info in self.running_threads if thread_info[0].process_id == process_id]
+        if len(executor) > 0:
+            return executor[0].terminate()
+
+        return False
     
     def run(self):
         while True:

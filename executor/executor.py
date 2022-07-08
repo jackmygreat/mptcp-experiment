@@ -3,6 +3,7 @@ import time
 import logging
 import subprocess
 import os
+import psutil
 
 class Executor(object):
 
@@ -29,6 +30,25 @@ class Executor(object):
             universal_newlines=True)
 
         return self.process.pid
+
+    def terminate(self):
+        parent_pid = self.process.pid
+
+        try:
+            parent_process = psutil.Process(parent_pid)
+
+            for child in parent_process.children():
+                try:
+                    child.kill()
+                except Exception as e:
+                    logging.error("Failed to terminate process %s child. error: %s", self.process_info.process_options.process_name, e)
+            
+            parent_process.kill()
+        except Exception as error:
+            logging.error("Failed to terminate process %s. error: %s", self.process_info.process_options.process_name, e)
+            return False
+        
+        return True
 
     def get_output(self):
         return self.output

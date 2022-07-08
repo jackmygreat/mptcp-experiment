@@ -46,9 +46,15 @@ def get_process_info(process_id : int):
 
 @server.delete("/process/{process_id}")
 def cancel_running_process(process_id : int):
-    return {
-        "canceled": process_id
-    }
+
+    if hooks["cancel_running_process"](process_id):
+        return {
+            "status": "the process canceld successfully"
+        }
+    else:
+        return {
+            "status": "couldnt cancel the process"
+        }
 
 @server.get("/output/{process_id}")
 def get_process_output(process_id: int):
@@ -90,7 +96,8 @@ def add_process_in_queue(process_req : ProcessReq):
     process_options.cpu_affinity = process_req.cpu_affinity
     process_options.scheduler_type_value = (process_req.scheduler_type, process_req.scheduler_value)
 
-    process_info = ProcessInfo(1, process_options)
+    process_info = ProcessInfo(server.start_process_id, process_options)
+    server.start_process_id = server.start_process_id + 1
     server.server_executor_queue.put(process_info)
 
     return {
@@ -125,6 +132,9 @@ def startup_event():
     hooks["get_all_process"] = executor_thread.get_all_running_process
     hooks["get_process_info"] = executor_thread.get_process_info_by_process_id
     hooks["get_process_output"] = executor_thread.get_process_output_by_id
+    hooks["cancel_running_process"] = executor_thread.terminate_process_by_id
+
+    server.start_process_id = 1
 
 if __name__ == "__main__":
     uvicorn.run("ptools-daemon:server", host="0.0.0.0", port=8080, reload=True, workers=1)
