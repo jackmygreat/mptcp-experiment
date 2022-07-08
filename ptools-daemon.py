@@ -32,14 +32,17 @@ server = FastAPI()
 @server.get("/process")
 def get_all_process():
     all_process = hooks["get_all_process"]()
-    #json_string = [process.toJSON() for process in all_process]
     return all_process
 
 @server.get("/process/{process_id}")
 def get_process_info(process_id : int):
-    return {
-        "process_id": process_id
-    }
+    all_process = hooks["get_all_process"]()
+    process = [process_info for process_info in all_process if process_info.process_id == process_id]
+
+    if len(process) > 0:
+        return process[0]
+    else:
+        return {}
 
 @server.delete("/process/{process_id}")
 def cancel_running_process(process_id : int):
@@ -59,11 +62,7 @@ def watch_process_output(process_id: int):
 
 @server.get("/process-queue")
 def get_process_in_queue():
-    queue_list = [queue_obj for queue_obj in server.server_executor_queue.queue]
-    json_string = [json.dumps(ob.__dict__) for ob in queue_list]
-    return {
-        "queue": json_string
-    }
+    return [queue_obj for queue_obj in server.server_executor_queue.queue]
 
 class ProcessReq(BaseModel):
     process_name: str
