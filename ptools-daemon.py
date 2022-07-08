@@ -104,12 +104,6 @@ def add_process_in_queue(process_req : ProcessReq):
         "status": "added to queue"
     }
 
-@server.delete("/process-queue/{process_id}")
-def delete_process_from_queue(process_id : int):
-    return {
-        "process_id": process_id
-    }
-
 @server.on_event("startup")
 def startup_event():
     executor_monitor_queue = queue.Queue(1000)
