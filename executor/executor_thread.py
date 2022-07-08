@@ -4,6 +4,7 @@ import math
 import psutil
 import threading
 import datetime
+import json
 
 from monitor.monitor_thread import *
 from monitor.monitor import *
@@ -118,6 +119,11 @@ class ExecutorThread(threading.Thread):
                     # clean from monitor thread
                     self.process_monitor_queue.put(monitor_req)
                     dead_threads_index.append(index)
+
+                    process_info.process_options.process_end_time = datetime.datetime.now()
+                    process_info.process_options.process_running_time = (process_info.process_options.process_end_time - process_info.process_options.process_start_time).seconds / 60.0
+                    with open(self.process_outputs + "/" + f"{process_info.process_options.process_name}-info.txt", "w+") as f:
+                        f.write(process_info.toJSON())
             
             # delete dead threads
             self.running_threads = [thread_info for index, thread_info in enumerate(self.running_threads) if index not in dead_threads_index]

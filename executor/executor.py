@@ -35,7 +35,7 @@ class Executor(object):
     
     def _write_output(self):
         with open(self.output_path + "/" +
-                        f"{self.process_info.process_options.process_name}-time", "w+") as f:
+                        f"{self.process_info.process_options.process_name}-output.txt", "w+") as f:
                 
             while True:
                 output = self.process.stdout.readline()
@@ -66,5 +66,5 @@ class Executor(object):
                     return return_code
 
     def get_write_output_thread(self):
-        return threading.Thread(name=f"{self.process_info.process_options.process_name}-output", target=self._write_output, args=())
+        return threading.Thread(name=f"{self.process_info.process_options.process_name}-output-thread", target=self._write_output, args=())
     

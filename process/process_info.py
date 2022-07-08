@@ -33,7 +33,13 @@ class ProcessOptions(object):
 
         return True
 
+    def times_to_string(self):
+        self.process_start_time = str(self.process_start_time)
+        self.process_end_time = str(self.process_end_time)
+        self.process_running_time = str(self.process_running_time)
+
     def toJSON(self):
+        self.times_to_string()
         return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
@@ -47,6 +53,7 @@ class ProcessInfo(object):
         return self.process_options.is_valid()
 
     def toJSON(self):
+        self.process_options.times_to_string()
         return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
