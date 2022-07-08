@@ -56,13 +56,15 @@ class MonitorProcess(object):
             sorted_thread_list = self._sort_threads_based_on_cpu_usage(threads)
             if psutil.Process(sorted_thread_list[0]).cpu_affinity()[0] != process_cpu_affinity[0]:
                 logging.info("System is not consistent(%s). because thread with pid %s has different affinity."
-                        "first cpu should be for %d but it's for %d", self.options.process_name, thread[0], self.recent_first_core_pid, sorted_thread_list[0])
+                        "first cpu should be for %d but it's for %d. cpu affinity: %d", self.options.process_name, thread[0], self.recent_first_core_pid, sorted_thread_list[0],
+                                process_cpu_affinity[0])
                 return False
 
             sorted_thread_list = sorted_thread_list[1:]
             for thread_pid in sorted_thread_list:
                 if psutil.Process(thread_pid).cpu_affinity()[0] != process_cpu_affinity[1]:
-                    logging.info("System is not consistent(%s). because shared thread with pid %d has diffrent cpu affinity.", self.options.process_name, thread_pid)
+                    logging.info("System is not consistent(%s). because shared thread with pid %d has diffrent cpu affinity. cpu affinity: %d", self.options.process_name, thread_pid,
+                                        process_cpu_affinity[1])
                     return False
         
         logging.debug("System is consistent(%s)", self.options.process_name)
