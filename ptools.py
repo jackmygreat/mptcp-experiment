@@ -113,6 +113,7 @@ def monitor_process(name: str):
 
 if __name__=="__main__":
 	print(psutil.pid_exists(1411))
+	print(psutil.Process(55382).children())
 	x = MonitorThread(args=(), kwargs={
 		'process_name': 'mmwave',
 		'process_cwd': 'dce',

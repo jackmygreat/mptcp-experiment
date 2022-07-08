@@ -9,7 +9,7 @@ from typing import Union, List
 
 from executor.executor_thread import *
 from monitor.monitor_thread import *
-
+from process.process_info import *
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -72,11 +72,12 @@ class ProcessReq(BaseModel):
     process_directory: str
     process_binary: str
     process_binary_options = ""
-    nice_value = 20
+    process_example_name: str
+    nice_value = 19
     ionice_type = psutil.IOPRIO_CLASS_BE
     ionice_value = 3
     cpu_affinity = []
-    scheduler_type = 'SCHED_OTHER'
+    scheduler_type = '-o'
     scheduler_value = 0
 
 @server.post("/process-queue/add")
@@ -86,6 +87,7 @@ def add_process_in_queue(process_req : ProcessReq):
     process_options.process_directory = process_req.process_directory
     process_options.process_binary = process_req.process_binary
     process_options.process_binary_options = process_req.process_binary_options
+    process_options.process_example_name = process_req.process_example_name
     process_options.nice_value = process_req.nice_value
     process_options.ionice_type_value = (process_req.ionice_type, process_req.ionice_value)
     process_options.cpu_affinity = process_req.cpu_affinity

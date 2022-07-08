@@ -4,7 +4,8 @@ import math
 import psutil
 import threading
 
-from monitor import *
+from monitor.monitor_thread import *
+from monitor.monitor import *
 from .executor import Executor
 
 class ExecutorThread(threading.Thread):
@@ -59,9 +60,11 @@ class ExecutorThread(threading.Thread):
                     shared_cpu_index, shared_cpu = min(enumerate(self.running_shared_process_on_cpus), key=lambda x: x[1][1])
                     self.running_shared_process_on_cpus[shared_cpu_index] = (shared_cpu[0], shared_cpu[1] + 1)
 
-                    new_process.process_options.cpu_affinity = [first_cpu, shared_cpu[0]]
+                    new_process.process_options.cpu_affinity = [first_cpu[0], shared_cpu[0]]
 
-                executor = Executor(new_process, self.process_outputs)
+                # comminucate between executor and monitor thread for notify monitor that he can start monitoring
+                event = threading.Event()
+                executor = Executor(new_process, self.process_outputs, event)
                 process_pid = executor.run()
                 new_process.process_options.process_pid = process_pid
 
@@ -74,7 +77,8 @@ class ExecutorThread(threading.Thread):
                 monitor_obj = MonitorProcess(new_process) 
                 monitor_req = MonitorRequest(MonitorRequestType.add, {
                     "monitor_process": monitor_obj,
-                    "process_id": new_process.process_id
+                    "process_id": new_process.process_id,
+                    "monitor_event": event
                 })
                 
                 #we should put large number for queue size

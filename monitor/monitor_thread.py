@@ -16,6 +16,9 @@ class MonitorRequest(object):
 
     def get_monitor_obj(self):
         return self.kwargs["monitor_process"]
+
+    def get_monitor_event(self):
+        return self.kwargs["monitor_event"]
     
     def get_process_id(self):
         return self.kwargs["process_id"]
@@ -41,7 +44,7 @@ class MonitorThread(threading.Thread):
                 request = self.queue.get()
 
                 if request.request_type == MonitorRequestType.add:
-                    self.process_list.append( (request.get_process_id(), request.get_monitor_obj()) )
+                    self.process_list.append( (request.get_process_id(), request.get_monitor_obj(), request.get_monitor_event()) )
                 elif request.request_type == MonitorRequestType.delete:
                     request_id = request.get_process_id()
                     self.process_list = [item for item in self.process_list if item[0] != request_id]
@@ -49,14 +52,20 @@ class MonitorThread(threading.Thread):
                     # invalid request type
                     logging.error("Got invalid request type in monitor thread")
 
+            dead_process = []
             for process_info in self.process_list:
-                process_info[0].monitor()
 
+                # for each process check if we can start monitoring.
+                # this because we have compiler stage and we dont want to start monitoing while we inside compiler stage
+                if not process_info[2].is_set():
+                    continue
+
+                try:
+                    process_info[1].monitor()
+                except Exception as e:
+                    logging.error("Cannot monitor process. error: %s", e)
+                    dead_process.append(process_info[0])
+            
+            self.process_list = [item for item in self.process_list if item[0] not in dead_process]
             time.sleep(self.sleep_time_in_second)
             
-
-
-                
-
-
-        
