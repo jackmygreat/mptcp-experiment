@@ -3,6 +3,7 @@ import logging
 import math
 import psutil
 import threading
+import datetime
 
 from monitor.monitor_thread import *
 from monitor.monitor import *
@@ -32,11 +33,16 @@ class ExecutorThread(threading.Thread):
         self.running_process_on_cpus = [(i, 0) for i in range(0, self.cpu_counts - self.maximum_number_of_shared_process)]
 
     def get_all_running_process(self):
-        return [thread_info[0] for thread_info in self.running_threads]
+        processs = [thread_info[0] for thread_info in self.running_threads]
+        for process in processs:
+            process.process_options.process_running_time = (datetime.datetime.now() - process.process_options.process_start_time).seconds / 60.0
+
+        return processs
 
     def get_process_info_by_process_id(self, process_id : int):
         process = [thread_info[0] for thread_info in self.running_threads if thread_info[0].process_id == process_id]
         if len(process) > 0:
+            process[0].process_options.process_running_time = (datetime.datetime.now() - process[0].process_options.process_start_time).seconds / 60.0
             return process[0]
         return None
 

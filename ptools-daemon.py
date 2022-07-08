@@ -103,7 +103,6 @@ def delete_process_from_queue(process_id : int):
         "process_id": process_id
     }
 
-
 @server.on_event("startup")
 def startup_event():
     executor_monitor_queue = queue.Queue(1000)

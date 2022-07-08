@@ -2,6 +2,8 @@ import psutil
 import os
 import subprocess
 import json
+import time
+import datetime
 
 class ProcessOptions(object):
 
@@ -13,6 +15,9 @@ class ProcessOptions(object):
         self.process_pid = -1
         self.process_binary_options = ""
         self.process_example_name = ""
+        self.process_start_time = datetime.datetime.now()
+        self.process_end_time = "-"
+        self.process_running_time = "-"
         self.nice_value = 20
         self.ionice_type_value = (psutil.IOPRIO_CLASS_BE, 3)
         self.cpu_affinity = []
