@@ -12,11 +12,12 @@ class Executor(object):
         self.output_path = output_path
         self.sent_signal_to_monitor_thread = False
         self.monitor_event = monitor_event
+        self.output = []
 
     def run(self):
         # change directory to give path
         if self.process_info.process_options.process_directory == None:
-            logging.info("Process directory does not specified")
+            logging.info("Process directory is None. process: %s", self.process_info.process_options.process_name)
         else:
             os.chdir(self.process_info.process_options.process_directory)
             
@@ -36,8 +37,10 @@ class Executor(object):
             while True:
                 output = self.process.stdout.readline()
                 f.write(output.strip() + "\n")
-                print(output.strip())
-
+                f.flush()
+                self.output.append(output.strip())
+                
+                # check if we sent signal beforce and check if we saw string for start monitoring
                 if not self.sent_signal_to_monitor_thread and self.process_info.process_options.start_monitoring_str in output.strip():
                     self.monitor_event.set()
 
@@ -60,4 +63,5 @@ class Executor(object):
                     return return_code
 
     def get_write_output_thread(self):
-        return threading.Thread(target=self._write_output, args=())
+        return threading.Thread(name=f"{self.process_info.process_options.process_name}-output", target=self._write_output, args=())
+    

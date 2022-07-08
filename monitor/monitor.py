@@ -19,7 +19,9 @@ class MonitorProcess(object):
         change_scheduler = subprocess.Popen(["chrt", str(scheduler_type), "-p", str(prio_value), str(thread_id)])
         return_code = change_scheduler.wait()
         if return_code != 0:
-            logging.error("Could not change scheduler.")
+            logging.error("Could not change scheduler of process %s. scheduler type: %s, scheduler value: %d", self.options.process_name,
+                                                                                                                self.options.scheduler_type_value[0],
+                                                                                                                self.options.scheduler_type_value[1])
 
     def _sort_threads_based_on_cpu_usage(self, thread_list : list):
         thread_pids = [thread_info[0] for thread_info in thread_list]
@@ -36,30 +38,31 @@ class MonitorProcess(object):
             try:
                 nice_value = psutil.Process(thread[0]).nice()
             except Exception as e:
-                logging.error("Tried to get nice value of dead thread. error: %s", e)
+                logging.error("Tried to get nice value of dead thread. process: %s error: %s", self.options.process_name, e)
 
             if nice_value != process_desire_nice_value:
-                logging.info("System is not consistent. because thread with pid %s has different nice value." 
-                            "current value: %d, desire value: %d", thread[0], nice_value, process_desire_nice_value)
+                logging.info("System is not consistent(%s). because thread with pid %s has different nice value." 
+                            "current value: %d, desire value: %d", self.options.process_name, thread[0], nice_value, process_desire_nice_value)
                 return False
             
             ionice_value = psutil.Process(thread[0]).ionice()
             if ionice_value[0] != process_io_nice_type_value[0] or ionice_value[1] != process_io_nice_type_value[1]:
-                logging.info("System is not consistent. because thread with pid %s has different ionice value or type."
-                                                        "current type: %d, current value: %d, desire type: %d, desire value: %d", thread[0], ionice_value[0], ionice_value[1],
+                logging.info("System is not consistent(%s). because thread with pid %s has different ionice value or type."
+                                                        "current type: %d, current value: %d, desire type: %d, desire value: %d", self.options.process_name, 
+                                                        thread[0], ionice_value[0], ionice_value[1],
                             process_desire_nice_value[0], process_desire_nice_value[1])
                 return False
             
             sorted_thread_list = self._sort_threads_based_on_cpu_usage(threads)
             if psutil.Process(sorted_thread_list[0]).cpu_affinity()[0] != process_cpu_affinity[0]:
-                logging.info("System is not consistent. because thread with pid %s has different affinity."
-                        "first cpu should be for %d but it's for %d", thread[0], self.recent_first_core_pid, sorted_thread_list[0])
+                logging.info("System is not consistent(%s). because thread with pid %s has different affinity."
+                        "first cpu should be for %d but it's for %d", self.options.process_name, thread[0], self.recent_first_core_pid, sorted_thread_list[0])
                 return False
 
             sorted_thread_list = sorted_thread_list[1:]
             for thread_pid in sorted_thread_list:
                 if psutil.Process(thread_pid).cpu_affinity()[0] != process_cpu_affinity[1]:
-                    logging.info("System is not consistent. because shared thread with pid %d has diffrent cpu affinity.", thread_pid)
+                    logging.info("System is not consistent(%s). because shared thread with pid %d has diffrent cpu affinity.", self.options.process_name, thread_pid)
                     return False
         
         logging.debug("System is consistent")
@@ -74,6 +77,8 @@ class MonitorProcess(object):
         process_scheduler_type_value = self.options.scheduler_type_value
         
         process = None
+
+        # find process based on example name and process directory
         for proc in psutil.process_iter():
             if self.process_info.process_options.process_example_name in proc.name() and \
                 self.process_info.process_options.process_directory in proc.cwd():
@@ -93,7 +98,7 @@ class MonitorProcess(object):
                 psutil.Process(thread[0]).ionice(process_io_nice_type_value[0], process_io_nice_type_value[1])
                 self._set_scheduler(thread[0], process_scheduler_type_value)
             except Exception as e:
-                logging.warning("Tried to set nice value for wrong thread_pid. error: %s", e)
+                logging.warning("Tried to set nice value for dead thread. process: %s error: %s", self.options.process_name, e)
         # set specific settings
         threads = process.threads()
         sorted_thread_list = self._sort_threads_based_on_cpu_usage(threads)
@@ -111,4 +116,5 @@ class MonitorProcess(object):
                     psutil.Process(thread_pid).cpu_affinity([process_cpu_affinity[1]])
                     self.shared_core_pid.append(thread_pid)
                 except Exception as e:
-                    logging.warning("Tried to set cpu affinity for wrong thread_pid. error: %s", e)
+                    logging.warning("Tried to set cpu affinity for dead thread. process: %s error: %s", self.options.process_name, e)
+

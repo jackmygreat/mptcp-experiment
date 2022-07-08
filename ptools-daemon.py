@@ -112,13 +112,13 @@ def startup_event():
     executor_monitor_queue = queue.Queue(1000)
     server_executor_queue = queue.Queue(1000)
 
-    monitor_thread = MonitorThread(kwargs = {
+    monitor_thread = MonitorThread(name="MonitorThread", kwargs = {
         "queue": executor_monitor_queue,
         "sleep_time_in_second": 10
     })
     monitor_thread.start()
 
-    executor_thread = ExecutorThread(kwargs = {
+    executor_thread = ExecutorThread(name="ExecutorThread", kwargs = {
         "process_queue": server_executor_queue,
         "process_outputs": "/root/playground/outputs",
         "process_monitor_queue": executor_monitor_queue,
@@ -128,7 +128,6 @@ def startup_event():
     server.server_executor_queue = server_executor_queue
     hooks["get_all_process"] = executor_thread.get_all_running_process
     hooks["get_process_info"] = executor_thread.get_process_info_by_process_id
-
 
 if __name__ == "__main__":
     uvicorn.run("ptools-daemon:server", host="0.0.0.0", port=8080, reload=True, workers=1)

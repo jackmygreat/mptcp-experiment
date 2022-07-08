@@ -48,7 +48,7 @@ class ExecutorThread(threading.Thread):
                 new_process = self.process_queue.get()
 
                 if not new_process.is_valid():
-                    logging.error("Submitted process doesnt have valid options")
+                    logging.error("Submitted process does not have valid options, therefore discard process. process: %s", new_process.process_options.process_name)
                     continue
 
                 # assign cpu's if cpu affinity option is empty
@@ -107,7 +107,8 @@ class ExecutorThread(threading.Thread):
                     # clean from monitor thread
                     self.process_monitor_queue.put(monitor_req)
                     dead_threads_index.append(index)
-
+            
+            # delete dead threads
             self.running_threads = [thread_info for index, thread_info in enumerate(self.running_threads) if index not in dead_threads_index]
             
             time.sleep(self.loop_time)

@@ -63,9 +63,10 @@ class MonitorThread(threading.Thread):
                 try:
                     process_info[1].monitor()
                 except Exception as e:
-                    logging.error("Cannot monitor process. error: %s", e)
+                    logging.error("Cannot monitor process %s. error: %s", process_info.process_options.process_name, e)
                     dead_process.append(process_info[0])
-            
+           
+            # delete dead process from monitor list
             self.process_list = [item for item in self.process_list if item[0] not in dead_process]
             time.sleep(self.sleep_time_in_second)
             
