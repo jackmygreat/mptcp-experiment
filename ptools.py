@@ -56,7 +56,16 @@ def stop_process_handler(args):
     pass
 
 def list_process_handler(args):
-    pass
+    running = args.running
+    pending = args.pending
+
+    response = None
+    if not running and pending:
+        response = requests.get("http:/127.0.0.1:8080/process")
+    else:
+        response = requests.get("http:/127.0.0.1:8080/process-queue")
+
+    print(colorful_json(response.json())
 
 def output_process_handler(args):
     pass
@@ -96,8 +105,8 @@ def main():
     stop_process_parser.set_defaults(func=stop_process_handler)
 
     list_process_parser = sub_parser.add_parser('list', help='List process')
-    list_process_parser.add_argument('--running', help='List of running process', action="store_true")
-    list_process_parser.add_argument('--pending', help='List of pending process', action="store_true")
+    list_process_parser.add_argument('--running', help='List of running process', action="store_true", default=False)
+    list_process_parser.add_argument('--pending', help='List of pending process', action="store_true", default=False)
     list_process_parser.set_defaults(func=list_process_handler)
 
     output_process_parser = sub_parser.add_parser('output', help='Print output of process')
