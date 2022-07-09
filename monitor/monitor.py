@@ -25,7 +25,11 @@ class MonitorProcess(object):
 
     def _sort_threads_based_on_cpu_usage(self, thread_list : list):
         thread_pids = [thread_info[0] for thread_info in thread_list]
-        thread_pids.sort(key=lambda thread_pid : psutil.Process(thread_pid).cpu_percent(interval=None), reverse=True)
+        try:
+            thread_pids.sort(key=lambda thread_pid : psutil.Process(thread_pid).cpu_percent(interval=None), reverse=True)
+        except Exception as e:
+            loggin.error("Tried to sort threads, but faced to dead thread. process: %s", self.options.process_name)
+            return None
         return thread_pids
     
     def _is_system_consistent(self, threads):
@@ -54,6 +58,9 @@ class MonitorProcess(object):
                 return False
             
             sorted_thread_list = self._sort_threads_based_on_cpu_usage(threads)
+            if sorted_thread_list == None:
+                return False
+            
             if psutil.Process(sorted_thread_list[0]).cpu_affinity()[0] != process_cpu_affinity[0]:
                 logging.info("System is not consistent(%s). because thread with pid %s has different affinity."
                         "first cpu should be for %d but it's for %d. cpu affinity: %d", self.options.process_name, thread[0], self.recent_first_core_pid, sorted_thread_list[0],
@@ -93,7 +100,11 @@ class MonitorProcess(object):
         threads = process.threads()
 
         # check if system consistent
-        if self._is_system_consistent(threads):
+        try:
+            if self._is_system_consistent(threads):
+                return
+        except Exception as e:
+            logging.error("Couldnt check system consistency. process: %s", process_name)
             return
     
         # set general settings
