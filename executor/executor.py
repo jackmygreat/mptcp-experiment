@@ -4,6 +4,7 @@ import logging
 import subprocess
 import os
 import psutil
+import copy
 
 class Executor(object):
 
@@ -17,8 +18,9 @@ class Executor(object):
 
     def _pre_execute_script(self):
         helper_script = self.process_info.process_options.pre_execute_script
-
-        pre_execute_script_process = subprocess.Popen([helper_script.script_path, str(self.process_info.toJSON())],
+        
+        process_info = copy.deepcopy(self.process_info)
+        pre_execute_script_process = subprocess.Popen([helper_script.script_path, str(process_info.toJSON())],
                 stdout = subprocess.PIPE,
                 stderr = subprocess.PIPE,
                 universal_newlines = True,
