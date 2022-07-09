@@ -1,0 +1,48 @@
+[
+  {
+      "process_name": "dce-example",
+      "process_directory": "/root/playground/ns-3-dce",
+      "process_binary": "./waf",
+      "process_example_name": "dce-example-mptcp-mmwave",
+      "process_binary_options": "--run dce-example-mptcp-mmwave",
+      "nice_value": 0,
+      "ionice_type": 2,
+      "ionice_value": 0,
+      "cpu_affinity": [],
+      "scheduler_type": "-o",
+      "scheduler_value": 0,
+      "pre_script": {
+          "use_script": true,
+          "script_path": "/root/playground/ns-3-dce/prescript.py",
+          "script_use_shell": false
+      },
+      "post_script": {
+          "use_script": false,
+          "script_path": "",
+          "script_use_shell": false
+      }
+  },
+  {
+    "process_name": "dce-example-1",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "dce-example-mptcp-mmwave",
+    "process_binary_options": "--run dce-example-mptcp-mmwave",
+    "nice_value": 0,
+    "ionice_type": 2,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-o",
+    "scheduler_value": 0,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce/prescript.py",
+        "script_use_shell": false
+    },
+    "post_script": {
+        "use_script": false,
+        "script_path": "",
+        "script_use_shell": false
+    }
+  }
+]

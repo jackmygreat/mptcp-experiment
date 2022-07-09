@@ -106,12 +106,28 @@ def info_process_handler(args):
     print(colorful_json( json.dumps(response.json(), indent=4)) )
 
 def defualt_process_handler(args):
-    parser.print_help()
-    
+    if args.t == "":
+        parser.print_help()
+
+    task_path = args.t
+
+    with open(task_path, "r") as f:
+        task_list = json.load(f)
+        for task in task_list:
+            if args.v:
+                print("<" * 40)
+                print(colorful_json(json.dumps(task, indent=4)))
+
+            response = requests.post("http://127.0.0.1:8080/process-queue/add", json=task, headers={"Content-Type": "application/json"})
+            if args.v:
+                print(">" * 40)
+            print(colorful_json( json.dumps(response.json(), indent=4)) )
+
 def main():
     global parser
     ptools_cli = argparse.ArgumentParser(prog="PTools")
     ptools_cli.add_argument('-v', help='Verbose', action="store_true")
+    ptools_cli.add_argument('-t', help='Path to list of tasks to execute(JSON)', type=str, default="")
     ptools_cli.set_defaults(func=defualt_process_handler)
     parser = ptools_cli
 
