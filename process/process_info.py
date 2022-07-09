@@ -5,6 +5,16 @@ import json
 import time
 import datetime
 
+class HelperScript(object):
+
+    def __init__(self):
+        self.use_script = False
+        self.script_path = ""
+        self.script_use_shell = False
+
+    def toJSON(self): 
+        return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
+
 class ProcessOptions(object):
 
     def __init__(self):
@@ -23,6 +33,9 @@ class ProcessOptions(object):
         self.cpu_affinity = []
         self.scheduler_type_value = ('', 0)
         self.start_monitoring_str = "here"
+
+        self.pre_execute_script = HelperScript()
+        self.post_execute_script = HelperScript()
 
     def is_valid(self):
         if len(self.process_name) == 0:
@@ -55,7 +68,4 @@ class ProcessInfo(object):
     def toJSON(self):
         self.process_options.times_to_string()
         return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
-
-
-
 
