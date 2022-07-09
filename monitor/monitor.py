@@ -83,9 +83,12 @@ class MonitorProcess(object):
         # find process based on example name and process directory
         for proc in psutil.process_iter():
             if self.process_info.process_options.process_example_name in proc.name() and \
-                self.process_info.process_options.process_directory in proc.cwd():
+                self.process_info.process_options.process_directory == proc.cwd():
                     process = proc
                     break
+
+        if process == None:
+            logging.warning("Couldnt find process with the give process info. process: %s, given cwd: %s", process_name, process_cwd)
 
         threads = process.threads()
 

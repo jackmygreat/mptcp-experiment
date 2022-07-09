@@ -33,6 +33,8 @@ class ExecutorThread(threading.Thread):
         self.running_shared_process_on_cpus = [(i, 0) for i in range(self.cpu_counts - 1, self.cpu_counts - 1 - self.maximum_number_of_shared_process, -1)]
         self.running_process_on_cpus = [(i, 0) for i in range(0, self.cpu_counts - self.maximum_number_of_shared_process)]
 
+        self.last_event = None
+
     def get_all_running_process(self):
         processs = [thread_info[0] for thread_info in self.running_threads]
         for process in processs:
@@ -63,8 +65,14 @@ class ExecutorThread(threading.Thread):
     def run(self):
         while True:
             # check if we have enough core for running program and if we have process in queue
-            if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty():
+            # if last event is None we are good to go, because there is no process in compile stage
+            # if last event is set we are also good to go, because previous running process finished his compile stage and moved one to monitor stage
+            if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty() and \
+                                        (self.last_event == None or self.last_event.is_set() ):
                 new_process = self.process_queue.get()
+
+                # clear last event
+                self.last_event = None
 
                 if not new_process.is_valid():
                     logging.error("Submitted process does not have valid options, therefore discard process. process: %s", new_process.process_options.process_name)
@@ -83,6 +91,10 @@ class ExecutorThread(threading.Thread):
 
                 # comminucate between executor and monitor thread for notify monitor that he can start monitoring
                 event = threading.Event()
+
+                # store last event in order to find out when we should start the new task
+                self.last_event = event
+
                 executor = Executor(new_process, self.process_outputs, event)
                 process_pid = executor.run()
                 new_process.process_options.process_pid = process_pid
