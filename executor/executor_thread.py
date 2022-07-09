@@ -67,6 +67,9 @@ class ExecutorThread(threading.Thread):
             # check if we have enough core for running program and if we have process in queue
             # if last event is None we are good to go, because there is no process in compile stage
             # if last event is set we are also good to go, because previous running process finished his compile stage and moved one to monitor stage
+            if self.last_event != None and self.last_event.is_set():
+                self.last_event = None
+            
             if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty() and \
                                         (self.last_event == None or self.last_event.is_set() ):
                 new_process = self.process_queue.get()
