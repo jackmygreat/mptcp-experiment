@@ -1,0 +1,14 @@
+[Unit]
+Description=Manage ns-3-dce instances in background to provide better results
+
+[Service]
+Restart=on-failure
+RestartSec=1
+StartLimitBurst=5
+StartLimitAction=reboot
+ExecStart=/bin/python3.7 /root/playground/ptools/ptools_daemon.py
+WorkingDirectory=/root/playground/ptools
+RuntimeDirectoryMode=0777
+
+[Install]
+WantedBy=multi-user.target
