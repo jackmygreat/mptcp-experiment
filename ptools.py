@@ -64,7 +64,7 @@ def add_process_handler(args):
         process_req.cpu_affinity = [int(cpu) for cpu in cpus]
     else:
         process_req.cpu_affinity = []
-    process_req.scheduler_type = args.scheduler_type
+    process_req.scheduler_type = '-' + args.scheduler_type
     process_req.scheduler_value = args.scheduler_value
 
     if args.v:
@@ -144,7 +144,7 @@ def main():
                         choices=[psutil.IOPRIO_CLASS_RT, psutil.IOPRIO_CLASS_BE, psutil.IOPRIO_CLASS_IDLE, psutil.IOPRIO_CLASS_NONE])   
     add_process_parser.add_argument('--ionice-value', type=int, help='Desire ionice value for process', default=0, choices=range(8))
     add_process_parser.add_argument('--cpus', type=str, help='Cpus for affinity', default="")   
-    add_process_parser.add_argument('--scheduler-type', type=str, help='Desire scheduler type for process', default="-o", choices=["-o", "-f", "-r", "-b", "-i"])
+    add_process_parser.add_argument('--scheduler-type', type=str, help='Desire scheduler type for process', default="o", choices=["o", "f", "r", "b", "i"])
     add_process_parser.add_argument('--scheduler-value', type=int, help='Desire scheduler value for process', default=0)
     add_process_parser.add_argument('--prescript-path', type=str, help='Pre execute script to run', default="")
     add_process_parser.add_argument('--prescript-shell', action='store_true', help='Pre script uses shell')
