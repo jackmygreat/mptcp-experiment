@@ -70,6 +70,11 @@ def watch_process_output(process_id: int):
 def get_process_in_queue():
     return [queue_obj for queue_obj in server.server_executor_queue.queue]
 
+class HelperScriptBody(BaseModel):
+    use_script = False
+    script_path = ""
+    script_use_shell = False
+
 class ProcessReq(BaseModel):
     process_name: str
     process_directory: str
@@ -83,6 +88,9 @@ class ProcessReq(BaseModel):
     scheduler_type = '-o'
     scheduler_value = 0
 
+    pre_script = HelperScriptBody()
+    post_script = HelperScriptBody()
+
 @server.post("/process-queue/add")
 def add_process_in_queue(process_req : ProcessReq):
     process_options = ProcessOptions()
@@ -95,6 +103,9 @@ def add_process_in_queue(process_req : ProcessReq):
     process_options.ionice_type_value = (process_req.ionice_type, process_req.ionice_value)
     process_options.cpu_affinity = process_req.cpu_affinity
     process_options.scheduler_type_value = (process_req.scheduler_type, process_req.scheduler_value)
+
+    process_options.pre_execute_script = process_req.pre_script
+    process_options.post_execute_script = process_req.post_script
 
     process_info = ProcessInfo(server.start_process_id, process_options)
     server.start_process_id = server.start_process_id + 1
