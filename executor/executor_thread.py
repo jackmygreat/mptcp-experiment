@@ -105,7 +105,7 @@ class ExecutorThread(threading.Thread):
                 # spawn a new thread for writing output
                 thread = executor.get_write_output_thread()
                 thread.start()
-                self.running_threads.append( (new_process, thread, executor) )
+                self.running_threads.append( (new_process, thread, executor, event) )
 
                 # create monitor request and send to monitor thread
                 monitor_obj = MonitorProcess(new_process) 
@@ -146,6 +146,8 @@ class ExecutorThread(threading.Thread):
                     process_info.process_options.process_running_time = (process_info.process_options.process_end_time - process_info.process_options.process_start_time).seconds / 60.0
                     with open(self.process_outputs + "/" + f"{process_info.process_options.process_name}-info.txt", "w+") as f:
                         f.write(process_info.toJSON())
+
+                    thread_info[3].set()
             
             # delete dead threads
             self.running_threads = [thread_info for index, thread_info in enumerate(self.running_threads) if index not in dead_threads_index]

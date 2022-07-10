@@ -110,7 +110,7 @@ class Executor(object):
                     if return_code != 0:
                         for output in self.process.stdout.readlines():
                             f.write(output.strip() + "\n")
-                        logging.error("Process faced error: %s", self.process.stderr.readlines())
+                        logging.error("Process %s faced error: %s", self.process_info.process_options.process_name, self.process.stderr.readlines())
                         for output in self.process.stderr.readlines():
                             f.write(output.strip() + "\n")
                     else: # exited normally

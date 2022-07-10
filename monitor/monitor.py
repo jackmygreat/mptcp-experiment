@@ -28,7 +28,7 @@ class MonitorProcess(object):
         try:
             thread_pids.sort(key=lambda thread_pid : psutil.Process(thread_pid).cpu_percent(interval=None), reverse=True)
         except Exception as e:
-            loggin.error("Tried to sort threads, but faced to dead thread. process: %s", self.options.process_name)
+            logging.error("Tried to sort threads, but faced to dead thread. process: %s", self.options.process_name)
             return None
         return thread_pids
     
