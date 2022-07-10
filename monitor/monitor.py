@@ -102,10 +102,10 @@ class MonitorProcess(object):
         # check if system consistent
         try:
             if self._is_system_consistent(threads):
-                return
+                return True
         except Exception as e:
             logging.error("Couldnt check system consistency. process: %s", process_name)
-            return
+            return False
     
         # set general settings
         for thread in threads:
@@ -134,3 +134,4 @@ class MonitorProcess(object):
                 except Exception as e:
                     logging.warning("Tried to set cpu affinity for dead thread. process: %s error: %s", self.options.process_name, e)
 
+        return False

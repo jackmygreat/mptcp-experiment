@@ -62,7 +62,7 @@ class MonitorThread(threading.Thread):
                     continue
 
                 try:
-                    process_info[1].monitor()
+                    is_consistent = process_info[1].monitor()
                 except Exception as e:
                     print(traceback.format_exc())
                     logging.error("Cannot monitor process id %d. error: %s", process_info[0], e)
