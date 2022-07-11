@@ -4,6 +4,7 @@ import time
 from enum import Enum
 from .monitor import MonitorProcess
 import traceback
+import math
 
 class MonitorRequestType(str, Enum):
     add = "add"
@@ -34,12 +35,27 @@ class MonitorThread(threading.Thread):
         self.kwargs = kwargs
         self.queue = self.kwargs["queue"]
         self.sleep_time_in_second = self.kwargs["sleep_time_in_second"]
+        self.minimum_number_of_consecutive_consistency = self.kwargs.get("minimum_number_of_consecutive_consistency", 20)
+        self.maximum_sleep_factor = self.kwargs.get("maximum_sleep_factor", 6)
         self.process_list = []
+
+    def _sleep_based_on_consistency(self):
+        factor = 0
+
+        if self.number_consecutive_consistency > self.minimum_number_of_consecutive_consistency:
+            factor = self.number_consecutive_consistency - self.minimum_number_of_consecutive_consistency
+            if factor > self.maximum_sleep_factor:
+                factor = self.maximum_sleep_factor
+
+        time.sleep(math.pow(2, factor) * self.sleep_time_in_second)
 
     def run(self):
         # loop for ever
-        while True:
 
+        self.number_consecutive_consistency = 0
+        while True:
+            local_consistency = True
+            
             # get all requests in queue
             if not self.queue.empty():
                 request = self.queue.get()
@@ -63,12 +79,19 @@ class MonitorThread(threading.Thread):
 
                 try:
                     is_consistent = process_info[1].monitor()
+                    if is_consistent != True:
+                        is_consistent = False
+                    local_consistency = local_consistency and is_consistent
                 except Exception as e:
                     print(traceback.format_exc())
                     logging.error("Cannot monitor process id %d. error: %s", process_info[0], e)
                     dead_process.append(process_info[0])
-           
+
+            if local_consistency:
+                self.number_consecutive_consistency += 1
+            else:
+                self.number_consecutive_consistency = 0
+
             # delete dead process from monitor list
             self.process_list = [item for item in self.process_list if item[0] not in dead_process]
-            time.sleep(self.sleep_time_in_second)
-            
+            self._sleep_based_on_consistency()

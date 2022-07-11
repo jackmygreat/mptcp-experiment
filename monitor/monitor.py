@@ -96,6 +96,7 @@ class MonitorProcess(object):
 
         if process == None:
             logging.warning("Couldnt find process with the give process info. process: %s, given cwd: %s", process_name, process_cwd)
+            return False
 
         threads = process.threads()
 
