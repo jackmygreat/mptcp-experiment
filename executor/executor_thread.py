@@ -5,6 +5,7 @@ import psutil
 import threading
 import datetime
 import json
+import math
 
 from monitor.monitor_thread import *
 from monitor.monitor import *
@@ -25,6 +26,9 @@ class ExecutorThread(threading.Thread):
         self.process_outputs = self.kwargs["process_outputs"]
         self.process_monitor_queue = self.kwargs["process_monitor_queue"]
         self.loop_time = self.kwargs["executor_thread_loop_time"]
+
+        self.minimum_number_of_consective_live = self.kwargs.get("minimum_number_of_consective_live", 30)
+        self.maximum_number_of_factor = self.kwargs.get("maximum_number_of_factor", 5) 
 
         self.running_threads = []
         self.cpu_counts = psutil.cpu_count()
@@ -61,15 +65,29 @@ class ExecutorThread(threading.Thread):
             return executor[0].terminate()
 
         return False
-    
+
+    def _sleep_based_on_factor(self):
+        factor = 0
+
+        if self.number_of_consecutive_live_process > self.minimum_number_of_consective_live:
+            factor = self.number_of_consecutive_live_process - self.minimum_number_of_consective_live
+            if factor > self.maximum_number_of_factor:
+                factor = self.maximum_number_of_factor
+
+        time.sleep(math.pow(2, factor) * self.loop_time)
+
     def run(self):
+        self.number_of_consecutive_live_process = 0
         while True:
+            logging.info("i am running")
+
+            local_live = True
             # check if we have enough core for running program and if we have process in queue
             # if last event is None we are good to go, because there is no process in compile stage
             # if last event is set we are also good to go, because previous running process finished his compile stage and moved one to monitor stage
             if self.last_event != None and self.last_event.is_set():
                 self.last_event = None
-            
+
             if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty() and \
                                         (self.last_event == None or self.last_event.is_set() ):
                 new_process = self.process_queue.get()
@@ -114,14 +132,19 @@ class ExecutorThread(threading.Thread):
                     "process_id": new_process.process_id,
                     "monitor_event": event
                 })
-                
+
                 #we should put large number for queue size
                 self.process_monitor_queue.put(monitor_req)
-
+                self.number_of_consecutive_live_process = 0
                 continue
 
             dead_threads_index = []
+
+            if len(self.running_threads) == 0:
+                local_live = False
+
             for index, thread_info in enumerate(self.running_threads):
+                local_live = local_live and thread_info[1].is_alive()
                 if not thread_info[1].is_alive():
                     process_info = thread_info[0]
                     first_cpu = process_info.process_options.cpu_affinity[0]
@@ -148,9 +171,13 @@ class ExecutorThread(threading.Thread):
                         f.write(process_info.toJSON())
 
                     thread_info[3].set()
-            
+
+            if local_live:
+                self.number_of_consecutive_live_process += 1
+            else:
+                self.number_of_consecutive_live_process = 0
+
             # delete dead threads
             self.running_threads = [thread_info for index, thread_info in enumerate(self.running_threads) if index not in dead_threads_index]
-            
-            time.sleep(self.loop_time)
+            self._sleep_based_on_factor()
 
