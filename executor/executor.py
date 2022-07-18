@@ -14,15 +14,45 @@ class Executor(object):
         self.output_path = output_path
         self.sent_signal_to_monitor_thread = False
         self.monitor_event = monitor_event
+        self.captured_kv_output = {}
         self.output = []
 
+    def _get_subprocess_input(self, helper_script, extra_input = None):
+        subprocess_input = ""
+
+        if helper_script.script_use_shell:
+            subprocess_input = helper_script.script_path
+            subprocess_input += " "
+            subprocess_input += str(process_info.toJSON())
+            subprocess_input += " "
+            for arg in helper_script.pass_args.split(" "):
+                subprocess_input += arg
+                subprocess_input += " "
+
+            if extra_input != None:
+                if type(extra_input) == list:
+                    for item in extra_input:
+                        subprocess_input += item
+                        subprocess_input += " "
+                else:
+                    subprocess_input.append(extra_input)
+        else:
+            subprocess_input = [helper_script.script_path, str(self.process_info.toJSON())] + helper_script.pass_args.split(" ")
+
+            if extra_input != None:
+                if type(extra_input) == list:
+                    subprocess_input.extend(extra_input)
+                else:
+                    subprocess_input.append(extra_input)
+
+        return subprocess_input
+
     def _pre_execute_script(self):
-        helper_script = self.process_info.process_options.pre_execute_script
-        
+        helper_script = self.process_info.process_options.pre_execute_script 
         process_info = copy.deepcopy(self.process_info)
 
         # TODO: there is a bug here. If it's using shell so we should pass string instead of list
-        pre_execute_script_process = subprocess.Popen([helper_script.script_path, str(process_info.toJSON())] + helper_script.pass_args.split(" "),
+        pre_execute_script_process = subprocess.Popen(self._get_subprocess_input(helper_script),
                 stdout = subprocess.PIPE,
                 stderr = subprocess.PIPE,
                 universal_newlines = True,
@@ -36,7 +66,8 @@ class Executor(object):
     def _post_execute_script(self):
         helper_script = self.process_info.process_options.post_execute_script
 
-        post_execute_script_process = subprocess.Popen([helper_script.script_path, str(self.process_info.toJSON())] + helper_script.pass_args.split(" "),
+        captured_kv = json.dumps(self.captured_kv_output)
+        post_execute_script_process = subprocess.Popen(self._get_subprocess_input(helper_script, str(captured_kv))
                 stdout = subprocess.PIPE,
                 stderr = subprocess.PIPE,
                 universal_newlines = True,
@@ -102,6 +133,24 @@ class Executor(object):
                 # check if we sent signal beforce and check if we saw string for start monitoring
                 if not self.sent_signal_to_monitor_thread and self.process_info.process_options.start_monitoring_str in output.strip():
                     self.monitor_event.set()
+
+                # check if ouput has key value which need to capture
+                if self.process_info.process_options.captured_kv_str in output.strip():
+
+                    # output form is: capture key=value
+                    splitted_output = output.strip().split(" ", 1)
+                    splitt_base_on_equal_sign = splitted_output[1].split("=", 1)
+
+                    key, value = splitt_base_on_equal_sign[0].strip(), splitt_base_on_equal_sign[1].strip()
+
+                    dict_value = self.captured_kv_output.get(key, None)
+                    if dict_value == None:
+                        self.captured_kv_output[key] = value
+                    else:
+                        if type(dict_value) == list:
+                            self.captured_kv_output[key] = dict_value + [value]
+                        else:
+                            self.captured_kv_output[key] = [dict_value, value]
 
                 return_code = self.process.poll()
 

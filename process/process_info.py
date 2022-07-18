@@ -35,6 +35,7 @@ class ProcessOptions(object):
         self.cpu_affinity = []
         self.scheduler_type_value = ('', 0)
         self.start_monitoring_str = "here"
+        self.captured_kv_str = "capture"
 
         self.pre_execute_script = HelperScript()
         self.post_execute_script = HelperScript()
