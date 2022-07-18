@@ -20,7 +20,9 @@ class Executor(object):
         helper_script = self.process_info.process_options.pre_execute_script
         
         process_info = copy.deepcopy(self.process_info)
-        pre_execute_script_process = subprocess.Popen([helper_script.script_path, str(process_info.toJSON())],
+
+        # TODO: there is a bug here. If it's using shell so we should pass string instead of list
+        pre_execute_script_process = subprocess.Popen([helper_script.script_path, str(process_info.toJSON())] + helper_script.pass_args.split(" "),
                 stdout = subprocess.PIPE,
                 stderr = subprocess.PIPE,
                 universal_newlines = True,
@@ -34,7 +36,7 @@ class Executor(object):
     def _post_execute_script(self):
         helper_script = self.process_info.process_options.post_execute_script
 
-        post_execute_script_process = subprocess.Popen([helper_script.script_path, str(self.process_info.toJSON())],
+        post_execute_script_process = subprocess.Popen([helper_script.script_path, str(self.process_info.toJSON())] + helper_script.pass_args.split(" "),
                 stdout = subprocess.PIPE,
                 stderr = subprocess.PIPE,
                 universal_newlines = True,

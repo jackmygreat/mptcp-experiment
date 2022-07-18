@@ -74,6 +74,7 @@ class HelperScriptBody(BaseModel):
     use_script = False
     script_path = ""
     script_use_shell = False
+    pass_args = ""
 
 def is_valid_uuid(uuid_to_test, version=4):
     try:

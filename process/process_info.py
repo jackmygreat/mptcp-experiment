@@ -12,6 +12,7 @@ class HelperScript(object):
         self.use_script = False
         self.script_path = ""
         self.script_use_shell = False
+        self.pass_args = ""
 
     def toJSON(self): 
         return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
