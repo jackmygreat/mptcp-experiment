@@ -4,6 +4,7 @@ import subprocess
 import json
 import time
 import datetime
+import uuid
 
 class HelperScript(object):
 
@@ -61,6 +62,7 @@ class ProcessInfo(object):
     def __init__(self, process_id : int, process_options : ProcessOptions):
         self.process_id = process_id
         self.process_options = process_options
+        self.process_identity = uuid.uuid4()
 
     def is_valid(self):
         return self.process_options.is_valid()

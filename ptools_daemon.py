@@ -75,7 +75,15 @@ class HelperScriptBody(BaseModel):
     script_path = ""
     script_use_shell = False
 
+def is_valid_uuid(uuid_to_test, version=4):
+    try:
+        uuid_obj = UUID(uuid_to_test, version=version)
+    except ValueError:
+        return False
+    return str(uuid_obj) == uuid_to_test
+
 class ProcessReq(BaseModel):
+    process_identity = ""
     process_name: str
     process_directory: str
     process_binary: str
@@ -108,6 +116,14 @@ def add_process_in_queue(process_req : ProcessReq):
     process_options.post_execute_script = process_req.post_script
 
     process_info = ProcessInfo(server.start_process_id, process_options)
+    if process_req.process_identity != "":
+        if is_valid_uuid(process_req.process_identity):
+            process_info.process_identity process_req.process_identity
+        else:
+            return {
+                "status": "cannot add to queue"
+            }
+
     server.start_process_id = server.start_process_id + 1
     server.server_executor_queue.put(process_info)
 
