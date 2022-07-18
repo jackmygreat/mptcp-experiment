@@ -63,6 +63,7 @@ class ProcessInfo(object):
         self.process_id = process_id
         self.process_options = process_options
         self.process_identity = uuid.uuid4()
+        self.process_depend_on = "-1"
 
     def is_valid(self):
         return self.process_options.is_valid()

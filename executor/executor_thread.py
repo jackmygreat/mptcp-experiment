@@ -38,6 +38,7 @@ class ExecutorThread(threading.Thread):
         self.running_process_on_cpus = [(i, 0) for i in range(0, self.cpu_counts - self.maximum_number_of_shared_process)]
 
         self.last_event = None
+        self.finished_process = []
 
     def get_all_running_process(self):
         processs = [thread_info[0] for thread_info in self.running_threads]
@@ -60,9 +61,15 @@ class ExecutorThread(threading.Thread):
         return None
 
     def terminate_process_by_id(self, process_id: int):
-        executor = [thread_info[2] for thread_info in self.running_threads if thread_info[0].process_id == process_id]
-        if len(executor) > 0:
-            return executor[0].terminate()
+        threads_info = [thread_info for thread_info in self.running_threads if thread_info[0].process_id == process_id]
+
+        if len(threads_info) > 0:
+            executor = threads_info[0][2]
+            process_info = threads_info[0][0]
+
+            status = executor.terminate()
+            self.finished_process.append(process_info.process_identity)
+            return status
 
         return False
 
@@ -75,6 +82,11 @@ class ExecutorThread(threading.Thread):
                 factor = self.maximum_number_of_factor
 
         time.sleep(math.pow(2, factor) * self.loop_time)
+
+    def _can_run_process(self, process_info):
+        if process_info.process_depend_on != "-1" and if process_info.process_depend_on in self.finished_process:
+            return False
+        return True
 
     def run(self):
         self.number_of_consecutive_live_process = 0
@@ -91,6 +103,11 @@ class ExecutorThread(threading.Thread):
             if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty() and \
                                         (self.last_event == None or self.last_event.is_set() ):
                 new_process = self.process_queue.get()
+                
+                # we should not sleep here
+                if not self._can_run_process(new_process):
+                    self._sleep_based_on_factor()
+                    continue
 
                 # clear last event
                 self.last_event = None
@@ -169,6 +186,8 @@ class ExecutorThread(threading.Thread):
                     process_info.process_options.process_running_time = (process_info.process_options.process_end_time - process_info.process_options.process_start_time).seconds / 60.0
                     with open(self.process_outputs + "/" + f"{process_info.process_options.process_name}-info.txt", "w+") as f:
                         f.write(process_info.toJSON())
+
+                    self.finished_process.append(process_info.process_identity)
 
                     thread_info[3].set()
 

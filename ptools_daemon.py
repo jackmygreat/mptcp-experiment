@@ -84,6 +84,7 @@ def is_valid_uuid(uuid_to_test, version=4):
 
 class ProcessReq(BaseModel):
     process_identity = ""
+    process_depend_on = "-1"
     process_name: str
     process_directory: str
     process_binary: str
@@ -121,7 +122,15 @@ def add_process_in_queue(process_req : ProcessReq):
             process_info.process_identity process_req.process_identity
         else:
             return {
-                "status": "cannot add to queue"
+                "status": "cannot add to queue because provided process identity is not valid uuid"
+            }
+
+    if process_req.process_depend_on != "-1":
+        if is_valid_uuid(process_req.process_depend_on):
+            process_info.process_depend_on = process_req.process_depend_on
+        else:
+            return {
+                "status": "cannot add to queue because depend_on is not valid uuid"
             }
 
     server.start_process_id = server.start_process_id + 1
