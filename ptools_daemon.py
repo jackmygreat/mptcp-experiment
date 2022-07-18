@@ -4,6 +4,7 @@ import logging
 import threading
 import json
 import psutil
+import uuid
 
 from typing import Union, List
 
@@ -78,7 +79,7 @@ class HelperScriptBody(BaseModel):
 
 def is_valid_uuid(uuid_to_test, version=4):
     try:
-        uuid_obj = UUID(uuid_to_test, version=version)
+        uuid_obj = uuid.UUID(uuid_to_test, version=version)
     except ValueError:
         return False
     return str(uuid_obj) == uuid_to_test

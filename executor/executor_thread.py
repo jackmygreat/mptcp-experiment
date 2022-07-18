@@ -85,9 +85,55 @@ class ExecutorThread(threading.Thread):
         time.sleep(math.pow(2, factor) * self.loop_time)
 
     def _can_run_process(self, process_info):
-        if process_info.process_depend_on != "-1" and process_info.process_depend_on in self.finished_process:
+        if process_info.process_depend_on != "-1" and process_info.process_depend_on not in self.finished_process:
             return False
         return True
+
+    def _check_process_liveness(self, local_live):
+        dead_threads_index = []
+
+        if len(self.running_threads) == 0:
+            local_live = False
+
+        for index, thread_info in enumerate(self.running_threads):
+            local_live = local_live and thread_info[1].is_alive()
+            if not thread_info[1].is_alive():
+                process_info = thread_info[0]
+                first_cpu = process_info.process_options.cpu_affinity[0]
+                shared_cpu = process_info.process_options.cpu_affinity[1]
+
+                # free cpus from list
+                first_cpu_index = [(x, y[1]) for x, y in enumerate(self.running_process_on_cpus) if y[0] == first_cpu][0]
+                shared_cpu_index = [(x, y[1]) for x, y in enumerate(self.running_shared_process_on_cpus) if y[0] == shared_cpu][0]
+
+                self.running_process_on_cpus[first_cpu_index[0]] = (first_cpu, first_cpu_index[1] - 1)
+                self.running_shared_process_on_cpus[shared_cpu_index[0]] = (shared_cpu, shared_cpu_index[1] - 1)
+
+                monitor_req = MonitorRequest(MonitorRequestType.delete, {
+                    "process_id": process_info.process_id
+                })
+
+                # clean from monitor thread
+                self.process_monitor_queue.put(monitor_req)
+                dead_threads_index.append(index)
+
+                process_info.process_options.process_end_time = datetime.datetime.now()
+                process_info.process_options.process_running_time = (process_info.process_options.process_end_time - process_info.process_options.process_start_time).seconds / 60.0
+                with open(process_info.process_options.process_output_dir + "/" + f"{process_info.process_options.process_name}-info.txt", "w+") as f:
+                    f.write(process_info.toJSON())
+
+                self.finished_process.append(process_info.process_identity)
+
+                thread_info[3].set()
+
+        if local_live:
+            self.number_of_consecutive_live_process += 1
+        else:
+            self.number_of_consecutive_live_process = 0
+
+        # delete dead threads
+        self.running_threads = [thread_info for index, thread_info in enumerate(self.running_threads) if index not in dead_threads_index]
+
 
     def run(self):
         self.number_of_consecutive_live_process = 0
@@ -104,9 +150,11 @@ class ExecutorThread(threading.Thread):
             if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty() and \
                                         (self.last_event == None or self.last_event.is_set() ):
                 new_process = self.process_queue.get()
-                
+
                 # we should not sleep here
                 if not self._can_run_process(new_process):
+                    self.process_queue.put(new_process)
+                    self._check_process_liveness(local_live)
                     self._sleep_based_on_factor()
                     continue
 
@@ -161,48 +209,6 @@ class ExecutorThread(threading.Thread):
                 self.number_of_consecutive_live_process = 0
                 continue
 
-            dead_threads_index = []
-
-            if len(self.running_threads) == 0:
-                local_live = False
-
-            for index, thread_info in enumerate(self.running_threads):
-                local_live = local_live and thread_info[1].is_alive()
-                if not thread_info[1].is_alive():
-                    process_info = thread_info[0]
-                    first_cpu = process_info.process_options.cpu_affinity[0]
-                    shared_cpu = process_info.process_options.cpu_affinity[1]
-
-                    # free cpus from list
-                    first_cpu_index = [(x, y[1]) for x, y in enumerate(self.running_process_on_cpus) if y[0] == first_cpu][0]
-                    shared_cpu_index = [(x, y[1]) for x, y in enumerate(self.running_shared_process_on_cpus) if y[0] == shared_cpu][0]
-
-                    self.running_process_on_cpus[first_cpu_index[0]] = (first_cpu, first_cpu_index[1] - 1)
-                    self.running_shared_process_on_cpus[shared_cpu_index[0]] = (shared_cpu, shared_cpu_index[1] - 1)
-
-                    monitor_req = MonitorRequest(MonitorRequestType.delete, {
-                        "process_id": process_info.process_id
-                    })
-
-                    # clean from monitor thread
-                    self.process_monitor_queue.put(monitor_req)
-                    dead_threads_index.append(index)
-
-                    process_info.process_options.process_end_time = datetime.datetime.now()
-                    process_info.process_options.process_running_time = (process_info.process_options.process_end_time - process_info.process_options.process_start_time).seconds / 60.0
-                    with open(process_info.process_options.process_output_dir + "/" + f"{process_info.process_options.process_name}-info.txt", "w+") as f:
-                        f.write(process_info.toJSON())
-
-                    self.finished_process.append(process_info.process_identity)
-
-                    thread_info[3].set()
-
-            if local_live:
-                self.number_of_consecutive_live_process += 1
-            else:
-                self.number_of_consecutive_live_process = 0
-
-            # delete dead threads
-            self.running_threads = [thread_info for index, thread_info in enumerate(self.running_threads) if index not in dead_threads_index]
+            self._check_process_liveness(local_live)
             self._sleep_based_on_factor()
 

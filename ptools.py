@@ -3,6 +3,7 @@ import psutil
 import requests
 import json
 from pydantic import BaseModel
+import uuid
 
 from pygments import highlight
 from pygments.formatters.terminal256 import Terminal256Formatter
@@ -43,7 +44,7 @@ def colorful_json(json_str: str):
 
 def add_process_handler(args):
     process_req = ProcessReq(process_name="", process_directory="", process_binary="", process_example_name="")
-    process_req.process_identity = args.process_identity
+    process_req.process_identity = str(args.process_identity)
     process_req.process_depend_on = args.process_depend_on
     process_req.process_name = args.process_name
     process_req.process_directory = args.process_directory
