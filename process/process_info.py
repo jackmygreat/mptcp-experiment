@@ -37,6 +37,8 @@ class ProcessOptions(object):
         self.start_monitoring_str = "here"
         self.captured_kv_str = "capture"
 
+        self.process_output_dir = ""
+
         self.pre_execute_script = HelperScript()
         self.post_execute_script = HelperScript()
 
@@ -49,14 +51,25 @@ class ProcessOptions(object):
 
         return True
 
+    def set_time_tuple(self, time_tuple):
+        self.process_start_time = time_tuple[0]
+        self.process_end_time = time_tuple[1]
+        self.process_running_time = time_tuple[2]
+
+    def get_time_tuple(self):
+        return (self.process_start_time, self.process_end_time, self.process_running_time)
+    
     def times_to_string(self):
         self.process_start_time = str(self.process_start_time)
         self.process_end_time = str(self.process_end_time)
         self.process_running_time = str(self.process_running_time)
 
     def toJSON(self):
+        time_tuple = self.get_time_tuple()
         self.times_to_string()
-        return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
+        json_result = json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
+        self.set_time_tuple(time_tuple)
+        return json_result
 
 
 class ProcessInfo(object):
@@ -71,6 +84,11 @@ class ProcessInfo(object):
         return self.process_options.is_valid()
 
     def toJSON(self):
+        time_tuple = self.process_options.get_time_tuple()
         self.process_options.times_to_string()
-        return json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
+        self.process_identity = str(self.process_identity)
+        json_result = json.dumps(self, default= lambda o: o.__dict__, sort_keys=True, indent=4)
+        self.process_options.set_time_tuple(time_tuple)
+        return json_result
+
 

@@ -13,9 +13,12 @@ class HelperScriptBody(BaseModel):
     use_script = False
     script_path = ""
     script_use_shell = False
+    pass_args = ""
 
 # TODO: dublicate
 class ProcessReq(BaseModel):
+    process_identity = ""
+    process_depend_on = "-1"
     process_name: str
     process_directory: str
     process_binary: str
@@ -40,6 +43,8 @@ def colorful_json(json_str: str):
 
 def add_process_handler(args):
     process_req = ProcessReq(process_name="", process_directory="", process_binary="", process_example_name="")
+    process_req.process_identity = args.process_identity
+    process_req.process_depend_on = args.process_depend_on
     process_req.process_name = args.process_name
     process_req.process_directory = args.process_directory
     process_req.process_binary = args.process_binary
@@ -134,6 +139,8 @@ def main():
     sub_parser = ptools_cli.add_subparsers(help='sub-command help')
 
     add_process_parser = sub_parser.add_parser('add', help='Add process to executor queue')
+    add_process_parser.add_argument('--process-identity', type=str, help='Identity of process(UUID)', default="")  
+    add_process_parser.add_argument('--process-depend-on', type=str, help='Wait until which process finish', default="-1")  
     add_process_parser.add_argument('--process-name', type=str, required=True, help='Name of process')  
     add_process_parser.add_argument('--process-directory', type=str, required=True, help='Directory of process')    
     add_process_parser.add_argument('--process-binary', type=str, required=True, help='Binary of process')  
@@ -148,8 +155,10 @@ def main():
     add_process_parser.add_argument('--scheduler-value', type=int, help='Desire scheduler value for process', default=0)
     add_process_parser.add_argument('--prescript-path', type=str, help='Pre execute script to run', default="")
     add_process_parser.add_argument('--prescript-shell', action='store_true', help='Pre script uses shell')
+    add_process_parser.add_argument('--prescript-args', type=str, help='Pass more args to pre script')
     add_process_parser.add_argument('--postscript-path', type=str, help='Post execute script to run', default="")
     add_process_parser.add_argument('--postscript-shell', action='store_true', help='Post script uses shell')
+    add_process_parser.add_argument('--postscript-args', type=str, help='Pass more args to post script')
     add_process_parser.set_defaults(func=add_process_handler)
 
     stop_process_parser = sub_parser.add_parser('stop', help='Stop running process')

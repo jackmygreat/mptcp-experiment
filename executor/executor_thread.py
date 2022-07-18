@@ -6,6 +6,7 @@ import threading
 import datetime
 import json
 import math
+import subprocess
 
 from monitor.monitor_thread import *
 from monitor.monitor import *
@@ -84,7 +85,7 @@ class ExecutorThread(threading.Thread):
         time.sleep(math.pow(2, factor) * self.loop_time)
 
     def _can_run_process(self, process_info):
-        if process_info.process_depend_on != "-1" and if process_info.process_depend_on in self.finished_process:
+        if process_info.process_depend_on != "-1" and process_info.process_depend_on in self.finished_process:
             return False
         return True
 
@@ -133,7 +134,12 @@ class ExecutorThread(threading.Thread):
                 # store last event in order to find out when we should start the new task
                 self.last_event = event
 
-                executor = Executor(new_process, self.process_outputs, event)
+                # generate process output dir
+                new_process_output = self.process_outputs + "/" + new_process.process_options.process_name
+                subprocess.run(f"mkdir -p {new_process_output}", shell=True)
+                new_process.process_options.process_output_dir = new_process_output
+
+                executor = Executor(new_process, new_process_output, event)
                 process_pid = executor.run()
                 new_process.process_options.process_pid = process_pid
 
@@ -184,7 +190,7 @@ class ExecutorThread(threading.Thread):
 
                     process_info.process_options.process_end_time = datetime.datetime.now()
                     process_info.process_options.process_running_time = (process_info.process_options.process_end_time - process_info.process_options.process_start_time).seconds / 60.0
-                    with open(self.process_outputs + "/" + f"{process_info.process_options.process_name}-info.txt", "w+") as f:
+                    with open(process_info.process_options.process_output_dir + "/" + f"{process_info.process_options.process_name}-info.txt", "w+") as f:
                         f.write(process_info.toJSON())
 
                     self.finished_process.append(process_info.process_identity)

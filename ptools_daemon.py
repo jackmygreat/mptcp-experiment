@@ -120,7 +120,7 @@ def add_process_in_queue(process_req : ProcessReq):
     process_info = ProcessInfo(server.start_process_id, process_options)
     if process_req.process_identity != "":
         if is_valid_uuid(process_req.process_identity):
-            process_info.process_identity process_req.process_identity
+            process_info.process_identity = process_req.process_identity
         else:
             return {
                 "status": "cannot add to queue because provided process identity is not valid uuid"
