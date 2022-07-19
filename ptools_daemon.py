@@ -157,7 +157,8 @@ def startup_event():
         "process_queue": server_executor_queue,
         "process_outputs": "/root/playground/outputs",
         "process_monitor_queue": executor_monitor_queue,
-        "executor_thread_loop_time": 10
+        "executor_thread_loop_time": 10,
+        "maximum_number_of_concurrent_running": 4
     })
     executor_thread.start()
     server.server_executor_queue = server_executor_queue

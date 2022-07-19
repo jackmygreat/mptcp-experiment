@@ -36,7 +36,9 @@ class ExecutorThread(threading.Thread):
         self.max_shared_process_per_cpu = 3
         self.maximum_number_of_shared_process = math.ceil(psutil.cpu_count() / 4)
         self.running_shared_process_on_cpus = [(i, 0) for i in range(self.cpu_counts - 1, self.cpu_counts - 1 - self.maximum_number_of_shared_process, -1)]
-        self.running_process_on_cpus = [(i, 0) for i in range(0, self.cpu_counts - self.maximum_number_of_shared_process)]
+
+        self.maximum_number_of_concurrent_running = self.kwargs.get("maximum_number_of_concurrent_running", self.cpu_counts - self.maximum_number_of_shared_process)
+        self.running_process_on_cpus = [(i, 0) for i in range(0, maximum_number_of_concurrent_running)]
 
         self.last_event = None
         self.finished_process = []
@@ -147,7 +149,7 @@ class ExecutorThread(threading.Thread):
             if self.last_event != None and self.last_event.is_set():
                 self.last_event = None
 
-            if len(self.running_threads) < self.cpu_counts - self.maximum_number_of_shared_process and not self.process_queue.empty() and \
+            if len(self.running_threads) < self.maximum_number_of_concurrent_running and not self.process_queue.empty() and \
                                         (self.last_event == None or self.last_event.is_set() ):
                 new_process = self.process_queue.get()
 
