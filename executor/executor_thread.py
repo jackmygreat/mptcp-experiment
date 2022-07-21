@@ -178,6 +178,8 @@ class ExecutorThread(threading.Thread):
 
                     new_process.process_options.cpu_affinity = [first_cpu[0], shared_cpu[0]]
 
+                new_process.process_options.process_start_time = datetime.datetime.now()
+
                 # comminucate between executor and monitor thread for notify monitor that he can start monitoring
                 event = threading.Event()
 
