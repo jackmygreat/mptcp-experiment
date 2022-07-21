@@ -93,7 +93,7 @@ def stop_process_handler(args):
 def list_process_handler(args):
     running = args.running
     pending = args.pending
-    fnished = args.finished
+    finished = args.finished
 
     response = None
     if not running and pending:
