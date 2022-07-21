@@ -93,10 +93,13 @@ def stop_process_handler(args):
 def list_process_handler(args):
     running = args.running
     pending = args.pending
+    fnished = args.finished
 
     response = None
     if not running and pending:
         response = requests.get("http://127.0.0.1:8080/process-queue")
+    elif not running and finished:
+        response = requests.get("http://127.0.0.1:8080/finished-process")
     else:
         response = requests.get("http://127.0.0.1:8080/process")
 
@@ -112,7 +115,7 @@ def info_process_handler(args):
     process_id = args.process_id
     response = requests.get(f"http://127.0.0.1:8080/process/{process_id}")
     print(colorful_json( json.dumps(response.json(), indent=4)) )
-
+ 
 def defualt_process_handler(args):
     if args.t == "":
         parser.print_help()
@@ -170,6 +173,7 @@ def main():
 
     list_process_parser = sub_parser.add_parser('list', help='List process')
     list_process_parser.add_argument('--running', help='List of running process', action="store_true", default=False)
+    list_process_parser.add_argument('--finished', help='List of finished process', action="store_true", default=False)
     list_process_parser.add_argument('--pending', help='List of pending process', action="store_true", default=False)
     list_process_parser.set_defaults(func=list_process_handler)
 

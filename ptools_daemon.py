@@ -25,7 +25,8 @@ hooks = {
         "watch_process_output": None,
         "get_process_in_queue": None,
         "add_process_in_queue": None,
-        "delete_process_from_queue": None
+        "delete_process_from_queue": None,
+        "get_finished_process": None
 }
 
 server = FastAPI()
@@ -142,6 +143,10 @@ def add_process_in_queue(process_req : ProcessReq):
         "status": "added to queue"
     }
 
+@server.get("/finished-process")
+def get_finished_process():
+    return hooks["get_finished_process"]()
+
 @server.on_event("startup")
 def startup_event():
     executor_monitor_queue = queue.Queue(1000)
@@ -166,6 +171,7 @@ def startup_event():
     hooks["get_process_info"] = executor_thread.get_process_info_by_process_id
     hooks["get_process_output"] = executor_thread.get_process_output_by_id
     hooks["cancel_running_process"] = executor_thread.terminate_process_by_id
+    hooks["get_finished_process"] = executor_thread.get_finished_process
 
     server.start_process_id = 1
 

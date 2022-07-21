@@ -50,6 +50,9 @@ class ExecutorThread(threading.Thread):
 
         return processs
 
+    def get_finished_process(self):
+        return self.finished_process
+
     def get_process_info_by_process_id(self, process_id : int):
         process = [thread_info[0] for thread_info in self.running_threads if thread_info[0].process_id == process_id]
         if len(process) > 0:
