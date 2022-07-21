@@ -118,7 +118,11 @@ class MonitorProcess(object):
                 logging.warning("Tried to set nice value for dead thread. process: %s error: %s", self.options.process_name, e)
         # set specific settings
         threads = process.threads()
-        sorted_thread_list = self._sort_threads_based_on_cpu_usage(threads)
+
+        try:
+            sorted_thread_list = self._sort_threads_based_on_cpu_usage(threads)
+        except Exception as e:
+            return False
 
         # set most active cpu to first core
         psutil.Process(sorted_thread_list[0]).cpu_affinity([process_cpu_affinity[0]])
