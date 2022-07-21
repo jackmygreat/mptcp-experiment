@@ -79,6 +79,28 @@ class Executor(object):
             logging.error("Post execute script faild. process: %s, error: %s", self.process_info.process_options.process_name, 
                                      post_execute_script_process.stderr.readlines())
 
+    def _get_binary_process_options(self):
+        splitted_by_space = self.process_info.process_options.process_binary_options.split(" ")
+        process_options = []
+
+        is_in_cut = False
+        long_option = ""
+        for item in splitted_by_space:
+            if '"' not in item and not is_in_cut:
+                process_options.append(item)
+            elif not is_in_cut:
+                is_in_cut = True
+                long_option += item + " "
+            elif '"' in item and is_in_cut:
+                is_in_cut = False
+                long_option += item
+                process_options.append(long_option.replace('"', ''))
+                long_option = ""
+            else:
+                long_option += item + " "
+
+        return process_options
+
     def run(self):
         # change directory to give path
         if self.process_info.process_options.process_directory == None:
@@ -91,8 +113,9 @@ class Executor(object):
             self._pre_execute_script()
 
         # run and get process
-        self.process = subprocess.Popen([self.process_info.process_options.process_binary] + 
-                self.process_info.process_options.process_binary_options.split(" "),
+        options = [self.process_info.process_options.process_binary] + self._get_binary_process_options()
+
+        self.process = subprocess.Popen(options,
             stdout = subprocess.PIPE,
             stderr = subprocess.PIPE,
             universal_newlines=True)
