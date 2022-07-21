@@ -59,11 +59,13 @@ def add_process_handler(args):
         process_req.pre_script.use_script = True
         process_req.pre_script.script_path = args.prescript_path
         process_req.pre_script.script_use_shell = args.prescript_shell
+        process_req.pre_script.pass_args = args.prescript_args
 
     if args.postscript_path != "":
         process_req.post_script.use_script = True
         process_req.post_script.script_path = args.postscript_path
         process_req.post_script.script_use_shell = args.postscript_shell
+        process_req.post_script.pass_args = args.postscript_args
 
     cpus = [cpu for cpu in args.cpus.split(",")]
     if len(cpus) > 0 and cpus[0] != '':
@@ -156,10 +158,10 @@ def main():
     add_process_parser.add_argument('--scheduler-value', type=int, help='Desire scheduler value for process', default=0)
     add_process_parser.add_argument('--prescript-path', type=str, help='Pre execute script to run', default="")
     add_process_parser.add_argument('--prescript-shell', action='store_true', help='Pre script uses shell')
-    add_process_parser.add_argument('--prescript-args', type=str, help='Pass more args to pre script')
+    add_process_parser.add_argument('--prescript-args', type=str, help='Pass more args to pre script', default="")
     add_process_parser.add_argument('--postscript-path', type=str, help='Post execute script to run', default="")
     add_process_parser.add_argument('--postscript-shell', action='store_true', help='Post script uses shell')
-    add_process_parser.add_argument('--postscript-args', type=str, help='Pass more args to post script')
+    add_process_parser.add_argument('--postscript-args', type=str, help='Pass more args to post script', default="")
     add_process_parser.set_defaults(func=add_process_handler)
 
     stop_process_parser = sub_parser.add_parser('stop', help='Stop running process')
