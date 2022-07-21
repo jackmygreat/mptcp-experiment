@@ -1,3 +1,5 @@
+#!/usr/bin/python3.7
+
 import os
 import subprocess
 import sys
