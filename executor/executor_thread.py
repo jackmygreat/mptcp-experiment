@@ -38,7 +38,7 @@ class ExecutorThread(threading.Thread):
         self.running_shared_process_on_cpus = [(i, 0) for i in range(self.cpu_counts - 1, self.cpu_counts - 1 - self.maximum_number_of_shared_process, -1)]
 
         self.maximum_number_of_concurrent_running = self.kwargs.get("maximum_number_of_concurrent_running", self.cpu_counts - self.maximum_number_of_shared_process)
-        self.running_process_on_cpus = [(i, 0) for i in range(0, maximum_number_of_concurrent_running)]
+        self.running_process_on_cpus = [(i, 0) for i in range(0, self.maximum_number_of_concurrent_running)]
 
         self.last_event = None
         self.finished_process = []
