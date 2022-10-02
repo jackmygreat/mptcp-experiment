@@ -57,6 +57,8 @@ def plot_algo(algo, results):
         for specific_algo, folders in results.items():
                 for folder in folders:
                     iperf_data = extract_iperf_data(folder)
+                    if iperf_data == None:
+                        continue
                     download_time.append(iperf_data["time"])
                     throughput.append(iperf_data["throughput"])
                     file_size.append(iperf_data["file_size"])          
@@ -145,6 +147,8 @@ def plot_algo(algo, results):
                 pckt_loss_file_name = ''
                 for folder in folders:
                     iperf_data = extract_iperf_data(folder)
+                    if iperf_data == None:
+                        continue
                     download_time.append(iperf_data["time"])
                     throughput.append(iperf_data["throughput"])
                     file_size.append(iperf_data["file_size"])          
@@ -197,9 +201,14 @@ def plot_algo(algo, results):
 
         loss_fig.savefig(f'{algo}/{algo}_pckt_loss.png')
 
+not_c = []
 def extract_iperf_data(folder):
-        with open(f"{folder}/results/iperf.txt", "r") as f:
+        with open(f"{folder}/results/iperf.txt", "r") as f:      
                 lines = f.readlines()
+                if len(lines) == 0:
+                        not_c.append(folder)
+                        return None
+
                 splitted_data = lines[-1].split(" ")
                 valid_data = []
                 for data in splitted_data:
@@ -258,6 +267,8 @@ for key, value in folders.items():
         file_size = []
         for folder in value:
                 iperf_data = extract_iperf_data(folder)
+                if iperf_data == None:
+                        continue
                 download_time.append(iperf_data["time"])
                 throughput.append(iperf_data["throughput"])
                 file_size.append(iperf_data["file_size"])          
@@ -271,3 +282,4 @@ for key, value in folders.items():
 
 for algorithm, spec in algo.items():
         plot_algo(algorithm, spec)
+print(not_c)
