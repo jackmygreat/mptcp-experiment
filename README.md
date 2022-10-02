@@ -144,3 +144,10 @@ Another way that could send tasks to the daemon is the following command:
 ```bash
 python3.7 ptools.py -v add --process-name "first-scenario" --process-directory "/root/playground/ns-3-dce" --process-binary "./waf" --process-binary-options "--enable-opt --run \"first-scenario --ccAlgo=cubic --pathM=fullmesh --scheAlgo=default\"" --process-sub-program "first-scenario" --prescript-path "/root/playground/ns-3-dce/prescript.py" --nice-value -20 --scheduler-type "r" --scheduler-value 99 --ionice-type 1 --ionice-value 0 --postscript-path "/root/playground/ns-3-dce/post_process.py" --postscript-args "cubic lte-mmwave2" --process-identity "c5b9323d-b8ae-4f04-91a9-2f746bd8d65e"
 ```
+
+## Generate Plots
+There are two scripts that generate results:
+1. plot_file_distance: This file will generate plots for scenarios each time the user downloads a file with different sizes at different distances.
+2. plot_cc_pm_sch: This script will generate plots for scenarios when the simulation is done with a specific movement scenario but only with different options, such as congestion control, path manager, and scheduler.
+
+As you can see, results are uploaded to the repository, so copy the scripts to the root of each resulting folder and then run the scripts.
