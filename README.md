@@ -103,11 +103,11 @@ And also can be remove:
 ./setup-service.sh k
 ```
 
-Sending task to PTools deamon can be done by serveral ways but the easiest one is sending task that written in json file; here is the example of json file:
+Sending task to PTools deamon can be done by serveral ways but the easiest one is sending task that written in json file. First copy the prescript.py and post_process.py to ns-3-dce folder then copy whole ns-3-dce folder and name it ns-3-dce-1. here is the example of json file:
 ```json
 [{
     "process_name": "scalable_binder_default",
-    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_directory": "/root/playground/ns-3-dce-1",
     "process_binary": "./waf",
     "process_example_name": "first-scenario",
     "process_identity": "04216daa-7e8f-4b39-a72e-5a3ab4ef6866",
@@ -121,13 +121,13 @@ Sending task to PTools deamon can be done by serveral ways but the easiest one i
     "scheduler_value": 99,
     "pre_script": {
         "use_script": true,
-        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
         "script_use_shell": false,
         "pass_args": ""
     },
     "post_script": {
         "use_script": true,
-        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
         "script_use_shell": false,
         "pass_args": "scalable lte-mmwave2"
     }
@@ -138,3 +138,7 @@ The above json simply created by taskgenerator script. For sending the tasks to 
 python3.7 ptools.py -t task_list.json
 ```
 
+Another way that could send task to daemon is the following command:
+```bash
+python3.7 ptools.py -v add --process-name "first-scenario" --process-directory "/root/playground/ns-3-dce" --process-binary "./waf" --process-binary-options "--enable-opt --run \"first-scenario --ccAlgo=cubic --pathM=fullmesh --scheAlgo=default\"" --process-sub-program "first-scenario" --prescript-path "/root/playground/ns-3-dce/prescript.py" --nice-value -20 --scheduler-type "r" --scheduler-value 99 --ionice-type 1 --ionice-value 0 --postscript-path "/root/playground/ns-3-dce/post_process.py" --postscript-args "cubic lte-mmwave2" --process-identity "c5b9323d-b8ae-4f04-91a9-2f746bd8d65e"
+```
