@@ -1,0 +1,28 @@
+------------------------------------------------------------
+Client connecting to 10.2.0.1, TCP port 5001 with pid 46642
+TCP window size: 32.0 MByte (default)
+------------------------------------------------------------
+[  3] local 7.0.0.2 port 42373 connected with 10.2.0.1 port 5001
+[ ID] Interval        Transfer    Bandwidth       Write/Err  Rtry    Cwnd/RTT
+[  3] 0.00-0.30 sec  41.3 MBytes  1154 Mbits/sec  332/0          0       14K/40000 us
+[  3] 0.30-0.60 sec  7.14 MBytes   200 Mbits/sec  59/0          0       14K/40000 us
+[  3] 0.60-0.90 sec  18.4 MBytes   514 Mbits/sec  149/0          0       14K/40000 us
+[  3] 0.90-1.20 sec  24.3 MBytes   679 Mbits/sec  196/0          0       14K/40000 us
+[  3] 1.20-1.50 sec  26.8 MBytes   750 Mbits/sec  216/0          0       14K/40000 us
+[  3] 1.50-1.80 sec  12.1 MBytes   337 Mbits/sec  98/1          0       14K/40000 us
+[  3] 1.80-2.10 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 2.10-2.40 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 2.40-2.70 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 2.70-3.00 sec  14.1 MBytes   395 Mbits/sec  115/0          0       14K/40000 us
+[  3] 3.00-3.30 sec  22.6 MBytes   631 Mbits/sec  182/0          0       14K/40000 us
+[  3] 3.30-3.60 sec  7.29 MBytes   204 Mbits/sec  61/0          0       14K/40000 us
+[  3] 3.60-3.90 sec  8.28 MBytes   232 Mbits/sec  68/0          0       14K/40000 us
+[  3] 3.90-4.20 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 4.20-4.50 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 4.50-4.80 sec  4.59 MBytes   128 Mbits/sec  38/2          0       14K/40000 us
+[  3] 4.80-5.10 sec  29.3 MBytes   819 Mbits/sec  236/1          0       14K/40000 us
+[  3] 5.10-5.40 sec  5.76 MBytes   161 Mbits/sec  47/0          0       14K/40000 us
+[  3] 5.40-5.70 sec  8.63 MBytes   241 Mbits/sec  71/0          0       14K/40000 us
+[  3] 5.70-6.00 sec  9.30 MBytes   260 Mbits/sec  76/0          0       14K/40000 us
+[  3] 6.00-6.30 sec  8.85 MBytes   248 Mbits/sec  72/0          0       14K/40000 us
+[  3] 0.00-6.31 sec   250 MBytes   332 Mbits/sec  2028/24          0       14K/40000 us

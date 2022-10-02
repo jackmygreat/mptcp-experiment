@@ -1,0 +1,15 @@
+------------------------------------------------------------
+Client connecting to 10.2.0.1, TCP port 5001 with pid 46642
+TCP window size: 32.0 MByte (default)
+------------------------------------------------------------
+[  3] local 7.0.0.2 port 42373 connected with 10.2.0.1 port 5001
+[ ID] Interval        Transfer    Bandwidth       Write/Err  Rtry    Cwnd/RTT
+[  3] 0.00-0.30 sec  41.2 MBytes  1153 Mbits/sec  332/0          0       14K/40000 us
+[  3] 0.30-0.60 sec  6.53 MBytes   182 Mbits/sec  54/0          0       14K/40000 us
+[  3] 0.60-0.90 sec  14.1 MBytes   393 Mbits/sec  115/0          0       14K/40000 us
+[  3] 0.90-1.20 sec  28.9 MBytes   809 Mbits/sec  233/0          0       14K/40000 us
+[  3] 1.20-1.50 sec  37.1 MBytes  1038 Mbits/sec  298/0          0       14K/40000 us
+[  3] 1.50-1.80 sec  36.9 MBytes  1030 Mbits/sec  297/0          0       14K/40000 us
+[  3] 1.80-2.10 sec  39.0 MBytes  1092 Mbits/sec  315/0          0       14K/40000 us
+[  3] 2.10-2.40 sec  41.9 MBytes  1173 Mbits/sec  337/0          0       14K/40000 us
+[  3] 0.00-2.43 sec   250 MBytes   863 Mbits/sec  2016/0          0       14K/40000 us

@@ -1,0 +1,25 @@
+------------------------------------------------------------
+Client connecting to 10.2.0.1, TCP port 5001 with pid 46642
+TCP window size: 32.0 MByte (default)
+------------------------------------------------------------
+[  3] local 7.0.0.2 port 42373 connected with 10.2.0.1 port 5001
+[ ID] Interval        Transfer    Bandwidth       Write/Err  Rtry    Cwnd/RTT
+[  3] 0.00-0.30 sec  41.3 MBytes  1154 Mbits/sec  332/0          0       14K/40000 us
+[  3] 0.30-0.60 sec  7.14 MBytes   200 Mbits/sec  59/0          0       14K/40000 us
+[  3] 0.60-0.90 sec  18.4 MBytes   514 Mbits/sec  149/0          0       14K/40000 us
+[  3] 0.90-1.20 sec  24.3 MBytes   679 Mbits/sec  196/0          0       14K/40000 us
+[  3] 1.20-1.50 sec  26.8 MBytes   750 Mbits/sec  216/0          0       14K/40000 us
+[  3] 1.50-1.80 sec  11.6 MBytes   323 Mbits/sec  94/1          0       14K/40000 us
+[  3] 1.80-2.10 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 2.10-2.40 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 2.40-2.70 sec  11.4 MBytes   319 Mbits/sec  93/1          0       14K/40000 us
+[  3] 2.70-3.00 sec  25.5 MBytes   714 Mbits/sec  206/0          0       14K/40000 us
+[  3] 3.00-3.30 sec  18.2 MBytes   508 Mbits/sec  148/0          0       14K/40000 us
+[  3] 3.30-3.60 sec  17.0 MBytes   477 Mbits/sec  138/0          0       14K/40000 us
+[  3] 3.60-3.90 sec  9.53 MBytes   266 Mbits/sec  77/2          0       14K/40000 us
+[  3] 3.90-4.20 sec  0.00 MBytes  0.00 Mbits/sec  0/4          0       14K/40000 us
+[  3] 4.20-4.50 sec  3.74 MBytes   105 Mbits/sec  30/3          0       14K/40000 us
+[  3] 4.50-4.80 sec  22.7 MBytes   635 Mbits/sec  183/0          0       14K/40000 us
+[  3] 4.80-5.10 sec  5.00 MBytes   140 Mbits/sec  40/3          0       14K/40000 us
+[  3] 5.10-5.40 sec  0.00 MBytes  0.00 Mbits/sec  0/3          0       14K/40000 us
+[  3] 0.00-5.47 sec   250 MBytes   383 Mbits/sec  2021/26          0       14K/40000 us
