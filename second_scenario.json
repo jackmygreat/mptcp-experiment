@@ -1,0 +1,163 @@
+[
+{
+    "process_name": "lia_ndiffports_default_500MB_50m",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "experiments",
+    "process_identity": "c653b6eb-49b8-42e7-a352-35bb93a6feca",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"experiments --ccAlgo=lia --pathM=ndiffports --scheAlgo=default --fileSize=500 --distance=50\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/exper_post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "lia_ndiffports_roundrobin_1000MB_150m",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "experiments",
+    "process_identity": "a5c11f1e-c58c-46dc-9a91-7d226e5c4b94",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"experiments --ccAlgo=lia --pathM=ndiffports --scheAlgo=roundrobin --fileSize=1000 --distance=150\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/exper_post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_fullmesh_roundrobin_250MB_100m",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "experiments",
+    "process_identity": "786aa8a9-69b7-40b6-b423-d820196d7f55",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"experiments --ccAlgo=olia --pathM=fullmesh --scheAlgo=roundrobin --fileSize=250 --distance=100\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/exper_post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_fullmesh_default_250MB_50m",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "experiments",
+    "process_identity": "91276f92-6638-40ee-bb38-983e0908da5b",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"experiments --ccAlgo=olia --pathM=fullmesh --scheAlgo=default --fileSize=250 --distance=50\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/exper_post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_fullmesh_roundrobin_500MB_150m",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "experiments",
+    "process_identity": "fc50b793-3e0d-4d7c-ad93-9ced9c0a072f",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"experiments --ccAlgo=balia --pathM=fullmesh --scheAlgo=roundrobin --fileSize=500 --distance=150\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/exper_post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_fullmesh_default_1000MB_50m",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "experiments",
+    "process_identity": "035acc0b-0875-425d-a1a9-ddbb3d29d66d",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"experiments --ccAlgo=balia --pathM=fullmesh --scheAlgo=default --fileSize=1000 --distance=50\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/exper_post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+}]

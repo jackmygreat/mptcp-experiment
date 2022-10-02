@@ -1,0 +1,1135 @@
+[
+{
+    "process_name": "veno_fullmesh_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "e35fb94f-0586-45e4-b44f-144431345f85",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=veno --pathM=fullmesh --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "veno lte-mmwave2"
+    }
+},
+{
+    "process_name": "veno_fullmesh_default",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "eeae1ea8-3ccb-4c38-9f72-84ed5853366a",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=veno --pathM=fullmesh --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "veno lte-mmwave2"
+    }
+},
+{
+    "process_name": "veno_ndiffports_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "5b1affc2-3b36-40a7-80f4-566bb21fe16d",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=veno --pathM=ndiffports --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "veno lte-mmwave2"
+    }
+},
+{
+    "process_name": "veno_ndiffports_default",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "7ea3dc0c-7eea-4d81-b289-188d150521af",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=veno --pathM=ndiffports --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "veno lte-mmwave2"
+    }
+},
+{
+    "process_name": "veno_binder_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "172b0ed1-8676-4de7-b242-14614009a84e",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=veno --pathM=binder --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "veno lte-mmwave2"
+    }
+},
+{
+    "process_name": "veno_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "856acbdb-ceae-403a-a6be-9ed7210398d8",
+    "process_depend_on": "-1",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=veno --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "veno lte-mmwave2"
+    }
+},
+{
+    "process_name": "illinois_fullmesh_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "f22b2921-2ff5-45cc-9500-c239428e3e88",
+    "process_depend_on": "e35fb94f-0586-45e4-b44f-144431345f85",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=illinois --pathM=fullmesh --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "illinois lte-mmwave2"
+    }
+},
+{
+    "process_name": "illinois_fullmesh_default",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "9266a01c-5177-4e9b-9071-80c7158fcd81",
+    "process_depend_on": "eeae1ea8-3ccb-4c38-9f72-84ed5853366a",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=illinois --pathM=fullmesh --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "illinois lte-mmwave2"
+    }
+},
+{
+    "process_name": "illinois_ndiffports_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "050ee06d-8708-4bed-832d-9d1fa13654aa",
+    "process_depend_on": "5b1affc2-3b36-40a7-80f4-566bb21fe16d",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=illinois --pathM=ndiffports --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "illinois lte-mmwave2"
+    }
+},
+{
+    "process_name": "illinois_ndiffports_default",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "b9d3ca27-153c-4392-bd25-6e3b3ed15534",
+    "process_depend_on": "7ea3dc0c-7eea-4d81-b289-188d150521af",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=illinois --pathM=ndiffports --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "illinois lte-mmwave2"
+    }
+},
+{
+    "process_name": "illinois_binder_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "f2e1ce8e-5556-4336-b6ca-178f1361a2bc",
+    "process_depend_on": "172b0ed1-8676-4de7-b242-14614009a84e",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=illinois --pathM=binder --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "illinois lte-mmwave2"
+    }
+},
+{
+    "process_name": "illinois_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "51a9445b-31fe-44fa-91ca-ec2e611a3486",
+    "process_depend_on": "856acbdb-ceae-403a-a6be-9ed7210398d8",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=illinois --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "illinois lte-mmwave2"
+    }
+},
+{
+    "process_name": "lia_fullmesh_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "e85b6998-c198-4d77-87ea-a11c2679b3c8",
+    "process_depend_on": "f22b2921-2ff5-45cc-9500-c239428e3e88",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=lia --pathM=fullmesh --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "lia_fullmesh_default",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "1040f3ab-1153-40b5-8afb-80784748ba12",
+    "process_depend_on": "9266a01c-5177-4e9b-9071-80c7158fcd81",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=lia --pathM=fullmesh --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "lia_ndiffports_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "f4f2a13f-68c8-4435-ac7a-82ceea4b3c00",
+    "process_depend_on": "050ee06d-8708-4bed-832d-9d1fa13654aa",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=lia --pathM=ndiffports --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "lia_ndiffports_default",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "6d4c26b7-5208-4860-8616-a008f1727253",
+    "process_depend_on": "b9d3ca27-153c-4392-bd25-6e3b3ed15534",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=lia --pathM=ndiffports --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "lia_binder_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "7edb54dd-d248-418d-9820-a3fc92ba92e6",
+    "process_depend_on": "f2e1ce8e-5556-4336-b6ca-178f1361a2bc",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=lia --pathM=binder --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "lia_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "1e29b039-0c71-4a11-971c-e6f7fe8a72ad",
+    "process_depend_on": "51a9445b-31fe-44fa-91ca-ec2e611a3486",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=lia --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "lia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_fullmesh_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "717be126-0d06-4c26-9330-b7ae5926d937",
+    "process_depend_on": "e85b6998-c198-4d77-87ea-a11c2679b3c8",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=olia --pathM=fullmesh --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_fullmesh_default",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "25da49ee-b0ae-455e-b8b9-6f28e82cf9cb",
+    "process_depend_on": "1040f3ab-1153-40b5-8afb-80784748ba12",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=olia --pathM=fullmesh --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_ndiffports_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "c618f702-3e0d-4446-bc0b-e60b2d6dba2f",
+    "process_depend_on": "f4f2a13f-68c8-4435-ac7a-82ceea4b3c00",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=olia --pathM=ndiffports --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_ndiffports_default",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "585d7cff-a551-4c77-89aa-1f1de8e99c2f",
+    "process_depend_on": "6d4c26b7-5208-4860-8616-a008f1727253",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=olia --pathM=ndiffports --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_binder_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "3d41c51b-0ca1-46f7-bdd9-78b7a82af672",
+    "process_depend_on": "7edb54dd-d248-418d-9820-a3fc92ba92e6",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=olia --pathM=binder --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "olia_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "8af6bf2d-3b75-41c3-a9a4-fecf4d8af045",
+    "process_depend_on": "1e29b039-0c71-4a11-971c-e6f7fe8a72ad",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=olia --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "olia lte-mmwave2"
+    }
+},
+{
+    "process_name": "wvegas_fullmesh_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "97459694-c7dc-45ee-a234-1afd3810136b",
+    "process_depend_on": "717be126-0d06-4c26-9330-b7ae5926d937",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=wvegas --pathM=fullmesh --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "wvegas lte-mmwave2"
+    }
+},
+{
+    "process_name": "wvegas_fullmesh_default",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "9edc5912-2a59-4488-ac17-be21abaf9787",
+    "process_depend_on": "25da49ee-b0ae-455e-b8b9-6f28e82cf9cb",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=wvegas --pathM=fullmesh --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "wvegas lte-mmwave2"
+    }
+},
+{
+    "process_name": "wvegas_ndiffports_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "cc4897f6-3016-4fef-94b7-b9d78968f11c",
+    "process_depend_on": "c618f702-3e0d-4446-bc0b-e60b2d6dba2f",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=wvegas --pathM=ndiffports --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "wvegas lte-mmwave2"
+    }
+},
+{
+    "process_name": "wvegas_ndiffports_default",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "05ad9120-6c72-4fee-a52a-14cc18ec0db8",
+    "process_depend_on": "585d7cff-a551-4c77-89aa-1f1de8e99c2f",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=wvegas --pathM=ndiffports --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "wvegas lte-mmwave2"
+    }
+},
+{
+    "process_name": "wvegas_binder_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "d56aed11-cc90-4870-9611-8b869372e94b",
+    "process_depend_on": "3d41c51b-0ca1-46f7-bdd9-78b7a82af672",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=wvegas --pathM=binder --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "wvegas lte-mmwave2"
+    }
+},
+{
+    "process_name": "wvegas_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "c7dbc65b-9ca1-4323-a6fb-32aa53604a95",
+    "process_depend_on": "8af6bf2d-3b75-41c3-a9a4-fecf4d8af045",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=wvegas --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "wvegas lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_fullmesh_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "a92dbae7-926f-421c-9d75-4d6c7cab1958",
+    "process_depend_on": "97459694-c7dc-45ee-a234-1afd3810136b",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=balia --pathM=fullmesh --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_fullmesh_default",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "8f629e9d-d481-4bcd-a854-fba61b267f02",
+    "process_depend_on": "9edc5912-2a59-4488-ac17-be21abaf9787",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=balia --pathM=fullmesh --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_ndiffports_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "1d9ed311-bea3-44a3-ace3-563a7ab9307d",
+    "process_depend_on": "cc4897f6-3016-4fef-94b7-b9d78968f11c",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=balia --pathM=ndiffports --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_ndiffports_default",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "3c06dae7-a7ba-4411-b54c-ce915f45ba5f",
+    "process_depend_on": "05ad9120-6c72-4fee-a52a-14cc18ec0db8",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=balia --pathM=ndiffports --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_binder_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "cbbb7418-0a4d-4e76-b1b4-0f51d19b056b",
+    "process_depend_on": "d56aed11-cc90-4870-9611-8b869372e94b",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=balia --pathM=binder --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+},
+{
+    "process_name": "balia_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "8a6985ba-2040-4043-8e45-3d2d2c3f2d5d",
+    "process_depend_on": "c7dbc65b-9ca1-4323-a6fb-32aa53604a95",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=balia --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "balia lte-mmwave2"
+    }
+},
+{
+    "process_name": "scalable_fullmesh_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-1",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "2fad4216-09bb-47ab-b488-5959fdfb86d4",
+    "process_depend_on": "a92dbae7-926f-421c-9d75-4d6c7cab1958",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=scalable --pathM=fullmesh --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-1/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "scalable lte-mmwave2"
+    }
+},
+{
+    "process_name": "scalable_fullmesh_default",
+    "process_directory": "/root/playground/ns-3-dce-2",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "2fb289b3-96de-4de1-9a33-3b2082fb9b88",
+    "process_depend_on": "8f629e9d-d481-4bcd-a854-fba61b267f02",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=scalable --pathM=fullmesh --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-2/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "scalable lte-mmwave2"
+    }
+},
+{
+    "process_name": "scalable_ndiffports_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-3",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "f3746525-65fe-4da2-bad3-f2c0918e6430",
+    "process_depend_on": "1d9ed311-bea3-44a3-ace3-563a7ab9307d",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=scalable --pathM=ndiffports --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-3/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "scalable lte-mmwave2"
+    }
+},
+{
+    "process_name": "scalable_ndiffports_default",
+    "process_directory": "/root/playground/ns-3-dce-4",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "02f04015-fc2e-4ca0-9af2-8b44e59d2eb3",
+    "process_depend_on": "3c06dae7-a7ba-4411-b54c-ce915f45ba5f",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=scalable --pathM=ndiffports --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-4/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "scalable lte-mmwave2"
+    }
+},
+{
+    "process_name": "scalable_binder_roundrobin",
+    "process_directory": "/root/playground/ns-3-dce-5",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "371ed6ab-c5fc-498d-9f9d-d132756ff57b",
+    "process_depend_on": "cbbb7418-0a4d-4e76-b1b4-0f51d19b056b",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=scalable --pathM=binder --scheAlgo=roundrobin\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-5/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "scalable lte-mmwave2"
+    }
+},
+{
+    "process_name": "scalable_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "04216daa-7e8f-4b39-a72e-5a3ab4ef6866",
+    "process_depend_on": "8a6985ba-2040-4043-8e45-3d2d2c3f2d5d",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=scalable --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "scalable lte-mmwave2"
+    }
+}]

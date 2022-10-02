@@ -160,7 +160,7 @@ class ExecutorThread(threading.Thread):
                 if not self._can_run_process(new_process):
                     self.process_queue.put(new_process)
                     self._check_process_liveness(local_live)
-                    self._sleep_based_on_factor()
+                    time.sleep(self.loop_time)
                     continue
 
                 # clear last event
