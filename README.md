@@ -89,5 +89,52 @@ cd ns-3-dce/
 CXXFLAGS_EXTRA="-O3" sudo -H ./waf --enable-opt --run dce-example-mptcp-mmwave
 ```
 
+## PTools
+PTools is simple tool that written specific for this project; The reason why this tool created is that because each single simulation takes so much time(around 3 ~ 5 h) it would be tedious that all of options and vrious senarios run sequentialy, and it was esential that all of simulaition run in background because each time ssh disconnected from the server the whole simulation should run again.
 
+PTools run on python3.7, so make sure python3.7 installed and after that install fastapi with pip.
+
+PTools service can run by the following command:
+```bash
+./setup-service.sh
+```
+And also can be remove:
+```bash
+./setup-service.sh k
+```
+
+Sending task to PTools deamon can be done by serveral ways but the easiest one is sending task that written in json file; here is the example of json file:
+```json
+[{
+    "process_name": "scalable_binder_default",
+    "process_directory": "/root/playground/ns-3-dce-6",
+    "process_binary": "./waf",
+    "process_example_name": "first-scenario",
+    "process_identity": "04216daa-7e8f-4b39-a72e-5a3ab4ef6866",
+    "process_depend_on": "8a6985ba-2040-4043-8e45-3d2d2c3f2d5d",
+    "process_binary_options": "--enable-opt --run \"first-scenario --ccAlgo=scalable --pathM=binder --scheAlgo=default\"",
+    "nice_value": -20,
+    "ionice_type": 1,
+    "ionice_value": 0,
+    "cpu_affinity": [],
+    "scheduler_type": "-r",
+    "scheduler_value": 99,
+    "pre_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/prescript.py",
+        "script_use_shell": false,
+        "pass_args": ""
+    },
+    "post_script": {
+        "use_script": true,
+        "script_path": "/root/playground/ns-3-dce-6/post_process.py",
+        "script_use_shell": false,
+        "pass_args": "scalable lte-mmwave2"
+    }
+}]
+```
+The above json simply created by taskgenerator script. For sending the tasks to daemon following command should work:
+```bash
+python3.7 ptools.py -t task_list.json
+```
 
